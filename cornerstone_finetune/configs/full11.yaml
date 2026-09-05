@@ -1,0 +1,66 @@
+# Stage 2 -- core6 plus the hepatic veins and the four named portal pedicles.
+#
+# Read README Sec. 2 before launching this. The four pedicle channels are the
+# Couinaud sectors and the reason the downstream pipeline works, but in these
+# masks they are a *remnant*: the contour class `classBloodVessels` overwrote
+# most of their voxels, leaving a median of 105-1329 each, and eight subjects
+# have no portal meshes at all. They are masked out where absent, so training
+# them costs little -- but judge them on `val/dice_pediculo_*` individually and
+# expect the honest answer to be low. `val/dice_thin` will drop relative to
+# core6 simply because it now averages over channels that barely exist.
+#
+# Start from the core6 result rather than from BTCV: point `pretrained_weights`
+# at the best core6 checkpoint (the head is re-created either way, and the rest
+# transfers), or leave it on BTCV for an independent comparison.
+seed: 42
+run_name: full11
+run_root: ./runs/cornerstone
+monitor: val/dice_thin
+monitor_mode: max
+save_top_k: 3
+checkpoint_every_minutes: 30
+freeze_encoder_epochs: 3
+early_stopping_patience: 0
+log_slices_every_n_epochs: 5
+
+data:
+  channel_preset: full11
+  roi_size: [128, 128, 128]   # 128 mm: a 96 mm patch cannot see the bifurcation
+  intensity_range: [-175.0, 250.0]
+  batch_size: 1
+  samples_per_volume: 2       # halved: 128^3 patches cost ~2.4x the memory
+  num_workers: 4
+  train_frac: 0.7
+  val_frac: 0.15
+  test_frac: 0.15
+  n_folds: 0
+  fold: 0
+  exclude_modality: [MR]
+  group_by: case
+  crop_background_ratio: 0.05
+  crop_thin_share: 0.8
+  elastic_prob: 0.15
+  affine_prob: 0.3
+  cache_rate_train: 1.0
+  cache_rate_val: 1.0
+
+model:
+  feature_size: 36
+  pretrained_weights: data/nn_model_weights/swin_unetr-epoch=483-val_loss=0.07.ckpt
+  sw_batch_size: 2
+  sw_overlap: 0.5
+  use_checkpoint: true
+  init_bias_prior: true
+  pos_weight_cap: 50.0
+  lambda_cldice: 0.5
+  learning_rate: 3.0e-4
+  weight_decay: 0.01
+  encoder_lr_scale: 0.3
+  warmup_epochs: 2
+  scheduler: cosine
+
+trainer:
+  max_epochs: 300
+  precision: bf16-mixed
+  gradient_clip_val: 1.0
+  log_every_n_steps: 5

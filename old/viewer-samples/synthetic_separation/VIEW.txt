@@ -1,0 +1,10 @@
+DEMO 2 — multi-tree separation. gt_tree{1,2,3} are the TRUE trees (3 colours). geodesic_cluster{0,1,2} are the unsupervised separation attempt — compare: clusters are size-balanced but leak across the true trees (~0.5 purity). Load the gt set and the cluster set in two passes.
+Cluster files:
+  viewer-samples/synthetic_separation/geodesic_cluster0.json
+  viewer-samples/synthetic_separation/geodesic_cluster1.json
+  viewer-samples/synthetic_separation/geodesic_cluster2.json
+
+From the repo root, run:
+
+~/.virtualenvs/viewer/bin/python skeleton-viewer/multi_viewer.py  --skeleton viewer-samples/synthetic_separation/gt_tree1.json --skeleton viewer-samples/synthetic_separation/gt_tree2.json --skeleton viewer-samples/synthetic_separation/gt_tree3.json
+

@@ -1,0 +1,68 @@
+# Stage 1d -- core5_paper_backbone + lambda_cldice 0.5 -> 0.8. Single variable.
+#
+# Run 9 (core5_paper_backbone) plateaued at val/dice_thin 0.675-0.682 from
+# epoch 150 to 300 while lr decayed to zero -- the exact "raise once dice_thin
+# plateaus" trigger from the knob table (training_diary.md, Run 8 section).
+# clDice is the topology term that keeps distal branches alive; at 0.8 it
+# contributes ~0.4 against Dice+BCE ~1.0-1.4 combined, still subdominant
+# (Run 3's domination happened at weight 1.0). Everything else identical to
+# core5_paper_backbone.yaml so lambda_cldice is the only variable.
+#
+# Target: val/test dice_vessels (unchanged at ~0.59 in Run 9) and
+# dice_portal_tree (0.64 val / 0.64 test). Compare against Run 9's best
+# checkpoint runs/cornerstone/core5_paper_backbone/checkpoints/epoch150-val_dice_thin0.6816.ckpt.
+seed: 42
+run_name: core5_paper_cldice
+run_root: ./runs/cornerstone
+monitor: val/dice_thin        # never val/dice: the mean is owned by `liver`
+monitor_mode: max
+save_top_k: 3
+checkpoint_every_minutes: 30
+freeze_encoder_epochs: 3
+early_stopping_patience: 0
+log_slices_every_n_epochs: 5
+
+data:
+  channel_preset: core5
+  roi_size: [96, 96, 96]      # 96 mm at the prepared 1 mm spacing
+  intensity_range: [-175.0, 250.0]   # CT soft-tissue window
+  batch_size: 1
+  samples_per_volume: 4       # -> 4 patches per optimiser step
+  num_workers: 4
+  train_frac: 0.7
+  val_frac: 0.15
+  test_frac: 0.15
+  n_folds: 0                  # set 5 (+ fold: 0..4) for the cross-validation
+  fold: 0
+  exclude_modality: [MR]      # the HU window is meaningless for RMV2025_0002_MR
+  group_by: case              # 38 distinct DICOM PatientIDs; no patient repeats
+  crop_background_ratio: 0.05
+  crop_thin_share: 0.7        # 70% of crop centres land on a tubular channel
+  elastic_prob: 0.15
+  affine_prob: 0.3
+  cache_rate_train: 1.0
+  cache_rate_val: 1.0
+
+model:
+  feature_size: 36            # must match the checkpoint; 48 would load nothing
+  pretrained_weights: LightningMedSeg3D/weights/BTCV/swin_unetr.pth
+  sw_batch_size: 4
+  sw_overlap: 0.5
+  use_checkpoint: true        # gradient checkpointing; ~40% less activation memory
+  init_bias_prior: true
+  pos_weight_cap: 50.0        # pos_weight defaults to capped inverse prevalence
+  lambda_dice: 1.0
+  lambda_bce: 1.0
+  lambda_cldice: 0.8          # was 0.5 in core5_paper_backbone -- the only change
+  learning_rate: 3.0e-4
+  weight_decay: 0.01
+  encoder_lr_scale: 0.3
+  warmup_epochs: 2
+  scheduler: cosine
+  threshold: 0.5
+
+trainer:
+  max_epochs: 300
+  precision: bf16-mixed
+  gradient_clip_val: 1.0
+  log_every_n_steps: 5

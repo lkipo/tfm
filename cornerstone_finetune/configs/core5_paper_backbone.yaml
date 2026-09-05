@@ -1,0 +1,77 @@
+# Stage 1c -- core5 (core6 minus gallbladder), backbone swapped to the
+# LightningMedSeg3D benchmark paper's BTCV SwinUNETR checkpoint.
+#
+# core5.yaml fine-tunes from data/nn_model_weights/swin_unetr-epoch=483-val_loss=0.07.ckpt,
+# an internal BTCV run. sources/1-s2.0-S2352914826000687-main.pdf (LightningMedSeg3D
+# benchmark paper) reports a separately trained, externally validated BTCV
+# SwinUNETR at LightningMedSeg3D/weights/BTCV/swin_unetr.pth: same architecture
+# (feature_size=36, MONAI SwinUNETR, 14-class BTCV head -- verified by loading
+# both checkpoints and diffing state_dicts: 160/160 keys match by name and
+# shape, 151/160 tensors differ in value, confirming these are two distinct
+# training runs of the identical architecture, not the same weights).
+#
+# Per the paper (Table 4/6): this checkpoint attains BTCV liver DSC 0.956 and
+# is the most reliable of the nine benchmarked architectures under zero-shot
+# external validation (near-zero generalisation gap on the Alvaro Cunqueiro
+# cohort, Table 6). Swapping it in as the pretrained backbone is a bet that a
+# better-generalising liver prior in the shared encoder/decoder helps every
+# fine-tuned channel -- liver, vessels and the rest -- not a replacement for
+# vessel supervision: the multi-channel sigmoid head (out.conv) is still
+# replaced and trained from scratch on the cornerstone masks exactly as in
+# core5, gallbladder excluded, everything else in this file identical to
+# core5.yaml so the backbone is the only variable.
+seed: 42
+run_name: core5_paper_backbone
+run_root: ./runs/cornerstone
+monitor: val/dice_thin        # never val/dice: the mean is owned by `liver`
+monitor_mode: max
+save_top_k: 3
+checkpoint_every_minutes: 30
+freeze_encoder_epochs: 3
+early_stopping_patience: 0
+log_slices_every_n_epochs: 5
+
+data:
+  channel_preset: core5
+  roi_size: [96, 96, 96]      # 96 mm at the prepared 1 mm spacing
+  intensity_range: [-175.0, 250.0]   # CT soft-tissue window
+  batch_size: 1
+  samples_per_volume: 4       # -> 4 patches per optimiser step
+  num_workers: 4
+  train_frac: 0.7
+  val_frac: 0.15
+  test_frac: 0.15
+  n_folds: 0                  # set 5 (+ fold: 0..4) for the cross-validation
+  fold: 0
+  exclude_modality: [MR]      # the HU window is meaningless for RMV2025_0002_MR
+  group_by: case              # 38 distinct DICOM PatientIDs; no patient repeats
+  crop_background_ratio: 0.05
+  crop_thin_share: 0.7        # 70% of crop centres land on a tubular channel
+  elastic_prob: 0.15
+  affine_prob: 0.3
+  cache_rate_train: 1.0
+  cache_rate_val: 1.0
+
+model:
+  feature_size: 36            # must match the checkpoint; 48 would load nothing
+  pretrained_weights: LightningMedSeg3D/weights/BTCV/swin_unetr.pth
+  sw_batch_size: 4
+  sw_overlap: 0.5
+  use_checkpoint: true        # gradient checkpointing; ~40% less activation memory
+  init_bias_prior: true
+  pos_weight_cap: 50.0        # pos_weight defaults to capped inverse prevalence
+  lambda_dice: 1.0
+  lambda_bce: 1.0
+  lambda_cldice: 0.5
+  learning_rate: 3.0e-4
+  weight_decay: 0.01
+  encoder_lr_scale: 0.3
+  warmup_epochs: 2
+  scheduler: cosine
+  threshold: 0.5
+
+trainer:
+  max_epochs: 300
+  precision: bf16-mixed
+  gradient_clip_val: 1.0
+  log_every_n_steps: 5

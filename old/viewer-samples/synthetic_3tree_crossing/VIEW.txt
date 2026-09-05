@@ -1,0 +1,10 @@
+DEMO 1 — A1 crossing fix. Load the three SEPARATED trees (margin 4): portal/hepatic/artery should occupy distinct, non-crossing territories. Then compare with the three INTERLACED trees (margin 0.5) which weave through each other.
+Interlaced files:
+  viewer-samples/synthetic_3tree_crossing/interlaced_marginp5_portal.json
+  viewer-samples/synthetic_3tree_crossing/interlaced_marginp5_hepatic.json
+  viewer-samples/synthetic_3tree_crossing/interlaced_marginp5_artery.json
+
+From the repo root, run:
+
+~/.virtualenvs/viewer/bin/python skeleton-viewer/multi_viewer.py  --skeleton viewer-samples/synthetic_3tree_crossing/separated_margin4_portal.json --skeleton viewer-samples/synthetic_3tree_crossing/separated_margin4_hepatic.json --skeleton viewer-samples/synthetic_3tree_crossing/separated_margin4_artery.json
+

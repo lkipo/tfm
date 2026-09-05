@@ -1,0 +1,63 @@
+# --- Patient/research data: must not be committed (see privacy note in tfm.tex) ---
+/data/
+/runs/
+/checkpoint_test_outputs/
+/continuity/data/
+
+# --- Large data/output archives ---
+*.zip
+*.tar.gz
+
+# --- Copyrighted reference material (downloaded papers) ---
+/sources/
+
+# --- Externally published dependencies: not ours to redistribute, referenced only ---
+/LightningMedSeg3D/
+/old-LightningMedSeg3D/
+/old/skeleton-viewer/
+
+# --- old/: historical bulk data excluded; lab_diary.md, viewer-samples/, main.tex,
+#     README.md, goals.md, skeletonization/, images/ are kept for provenance ---
+/old/data/
+/old/deepvesselnet/
+/old/zenodo_skeletons/
+/old/reconnection-sources/
+/old/hepatic-data-generation/
+/old/hepatic-data-generation-3trees/
+/old/combined-experiments/
+/old/skeleton-completion/
+/old/reconnection/
+/old/reconnection-clean/
+/old/__MACOSX/
+
+# --- Superseded/local artifacts ---
+TFM_Lois-3.pdf
+
+# --- LaTeX build artifacts (regenerated from tfm.tex + referencias.bib) ---
+*.aux
+*.bbl
+*.blg
+*.log
+*.lof
+*.lot
+*.out
+*.toc
+*.synctex.gz
+
+# --- Python ---
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+.nb_tmp/
+
+# --- Local tool config ---
+.claude/
+
+# --- macOS junk ---
+._*
+.DS_Store

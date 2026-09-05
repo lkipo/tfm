@@ -1,0 +1,86 @@
+# Stage 1, second pass -- same six channels as core6.yaml, three changes based
+# on what Run 1 (`core6`, see training_diary.md) actually did:
+#
+# 1. **Tversky instead of Dice**, beta > alpha (0.3 / 0.7). finetuning.md
+#    Sec. 5: "add Tversky (beta > alpha) if distal recall is still short."
+#    Run 1's portal_tree capped at 0.53 -- distal recall is exactly what's
+#    short. Tversky trades precision for recall on every channel this config
+#    trains, which is the right trade for tubular structures but watch
+#    `aorta`/`gallbladder` (blob-shaped, no distal-branch problem) for
+#    over-segmentation as the cost of that trade.
+# 2. **A dedicated liver crop share** (`crop_liver_share: 0.15`). Run 1's
+#    liver plateaued at Dice 0.82, short of the 0.90 "sound" bar in core6.yaml
+#    -- it was splitting the bulk crop budget three ways with aorta and
+#    gallbladder, two organs an order of magnitude smaller. Carving out a
+#    dedicated share stops that dilution without touching the thin-channel
+#    budget.
+# 3. **Shorter budget, real early stopping.** Run 1's own log shows it
+#    converged by epoch ~160 and epochs 160-297 moved val/dice_thin by <0.002
+#    (noise). early_stopping_patience was 0 there deliberately (n=38 metric
+#    noise) -- but 297 epochs of confirmed flatness is not noise, it's a
+#    plateau. max_epochs 200 + patience 30 stops this run near where Run 1
+#    actually finished learning, saving ~2 GPU-hours.
+#
+# Compare against Run 1's best checkpoint
+# (runs/cornerstone/core6/checkpoints/epoch254-val_dice_thin0.6068.ckpt) on
+# val/dice_thin, val/dice_liver, and -- the number that actually matters --
+# the finetuning.md Sec. 3 acceptance test through predict.py + run_couinaud.py.
+seed: 42
+run_name: core6_tversky
+run_root: ./runs/cornerstone
+monitor: val/dice_thin
+monitor_mode: max
+save_top_k: 3
+checkpoint_every_minutes: 30
+freeze_encoder_epochs: 3
+early_stopping_patience: 30   # Run 1 confirmed the plateau is real, not noise
+log_slices_every_n_epochs: 5
+
+data:
+  channel_preset: core6
+  roi_size: [96, 96, 96]
+  intensity_range: [-175.0, 250.0]
+  batch_size: 1
+  samples_per_volume: 4
+  num_workers: 4
+  train_frac: 0.7
+  val_frac: 0.15
+  test_frac: 0.15
+  n_folds: 0
+  fold: 0
+  exclude_modality: [MR]
+  group_by: case
+  crop_background_ratio: 0.05
+  crop_thin_share: 0.7
+  crop_liver_share: 0.15      # new: dedicated share, no longer split with aorta/gallbladder
+  elastic_prob: 0.15
+  affine_prob: 0.3
+  cache_rate_train: 1.0
+  cache_rate_val: 1.0
+
+model:
+  feature_size: 36
+  pretrained_weights: data/nn_model_weights/swin_unetr-epoch=483-val_loss=0.07.ckpt
+  sw_batch_size: 4
+  sw_overlap: 0.5
+  use_checkpoint: true
+  init_bias_prior: true
+  pos_weight_cap: 50.0
+  lambda_dice: 1.0             # weights the Tversky term now, not plain Dice
+  lambda_bce: 1.0
+  lambda_cldice: 0.5
+  use_tversky: true            # new
+  tversky_alpha: 0.3           # false-positive penalty (precision)
+  tversky_beta: 0.7            # false-negative penalty (recall) -- beta > alpha
+  learning_rate: 3.0e-4
+  weight_decay: 0.01
+  encoder_lr_scale: 0.3
+  warmup_epochs: 2
+  scheduler: cosine
+  threshold: 0.5
+
+trainer:
+  max_epochs: 200
+  precision: bf16-mixed
+  gradient_clip_val: 1.0
+  log_every_n_steps: 5

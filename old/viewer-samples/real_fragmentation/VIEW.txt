@@ -1,0 +1,6 @@
+DEMO 5 — REAL skeleton fragmentation (case 001). The 10 largest connected components of the revised skeleton, each a colour. Shows how a real hepatic skeleton breaks into many pieces — the motivation for reconnection.
+
+From the repo root, run:
+
+~/.virtualenvs/viewer/bin/python skeleton-viewer/multi_viewer.py  --skeleton viewer-samples/real_fragmentation/001_comp00_n402.json --skeleton viewer-samples/real_fragmentation/001_comp01_n376.json --skeleton viewer-samples/real_fragmentation/001_comp02_n311.json --skeleton viewer-samples/real_fragmentation/001_comp03_n74.json --skeleton viewer-samples/real_fragmentation/001_comp04_n25.json --skeleton viewer-samples/real_fragmentation/001_comp05_n23.json --skeleton viewer-samples/real_fragmentation/001_comp06_n17.json --skeleton viewer-samples/real_fragmentation/001_comp07_n14.json --skeleton viewer-samples/real_fragmentation/001_comp08_n11.json --skeleton viewer-samples/real_fragmentation/001_comp09_n9.json
+

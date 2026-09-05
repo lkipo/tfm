@@ -1,0 +1,9 @@
+DEMO 3 — single-tree reconnection. fragmented_skeleton.json = the broken input (40 gaps). cco_added_links.json = the 40 bridges CCO proposed (load as a TREE layer to see them as thick lines spanning the gaps). original_branches.json = the fragment branches.
+
+From the repo root, run:
+
+~/.virtualenvs/viewer/bin/python skeleton-viewer/multi_viewer.py  --skeleton data/../viewer-samples/synthetic_reconnection/fragmented_skeleton.json
+
+Tree (line) files — add each in the viewer UI as a 'tree' layer, or load via add_tree():
+  viewer-samples/synthetic_reconnection/original_branches.json
+  viewer-samples/synthetic_reconnection/cco_added_links.json

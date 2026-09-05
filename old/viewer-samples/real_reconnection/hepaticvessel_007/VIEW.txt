@@ -1,0 +1,8 @@
+DEMO 4 — REAL reconnection (case 007). vessel_gt.nii.gz = the annotated vessel mask; revised_skeleton.json = the Zenodo skeleton (1635 pts, fragmented); cco_added_links.json = the 76 bridges CCO added (TREE layer). Inspect whether the bridges follow plausible vessel continuations.
+
+From the repo root, run:
+
+~/.virtualenvs/viewer/bin/python skeleton-viewer/multi_viewer.py viewer-samples/real_reconnection/hepaticvessel_007/vessel_gt.nii.gz --skeleton viewer-samples/real_reconnection/hepaticvessel_007/revised_skeleton.json
+
+Tree (line) files — add each in the viewer UI as a 'tree' layer, or load via add_tree():
+  viewer-samples/real_reconnection/hepaticvessel_007/cco_added_links.json

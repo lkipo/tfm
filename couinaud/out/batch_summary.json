@@ -1,0 +1,4071 @@
+{
+  "cases": [
+    {
+      "case": "RMV2025_0001_CT_NCT_HBP_X",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.72, margin 0.25)",
+      "frame_confidence": 0.7197111084352135,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "mhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 5.492,
+        "2": 89.249,
+        "3": 85.634,
+        "4": 236.642,
+        "5": 135.314,
+        "6": 172.596,
+        "7": 348.611,
+        "8": 192.059
+      },
+      "volume_pct": {
+        "1": 0.4339454028415049,
+        "2": 7.0519288525494295,
+        "3": 6.766292903665226,
+        "4": 18.698053171744245,
+        "5": 10.691713080862232,
+        "6": 13.637516523822354,
+        "7": 27.545182234155106,
+        "8": 15.175367830359903
+      },
+      "volume_pct_other_mode": {
+        "1": 1.8173241561097253,
+        "2": 11.078329041551141,
+        "3": 2.9962934488624735,
+        "4": 16.003356518702244,
+        "5": 11.71447151028329,
+        "6": 6.286756368733491,
+        "7": 21.621337597987356,
+        "8": 28.48213135777029
+      },
+      "mode_agreement": 0.7293388021621416,
+      "mode_dice_per_segment": {
+        "1": 0.3793345500491366,
+        "2": 0.7703001882713897,
+        "3": 0.20551171543037514,
+        "4": 0.670171683592149,
+        "5": 0.8971478143117092,
+        "6": 0.6208097207736327,
+        "7": 0.8789232623543591,
+        "8": 0.6894890394694929
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            true,
+            "worst is V at 100%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            false,
+            "II above III (-0 mm)"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +49 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +77 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.960 between the portal-derived left liver and the MHV (Cantlie) half-space"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.793 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.806 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            true,
+            "6/8 in range; outliers I=0.4%, VII=27.5%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            true,
+            "II+III+IV = 32.5%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.72, margin 0.25"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.9999926097816929,
+          "anterior_posterior_gap_mm": 49.49689091088241,
+          "left_right_gap_mm": 76.65423592293291,
+          "dice_cantlie_vs_mhv": 0.9602471388064117,
+          "dice_right_sector_vs_rhv": 0.7925999022912935,
+          "dice_segment_iv_vs_lhv": 0.806439927115568,
+          "segments_in_reference_range": 6,
+          "left_liver_pct": 32.516274927958904,
+          "frame_confidence": 0.7197111084352135,
+          "mode_agreement": 0.7293388021621416
+        },
+        "passed": 11,
+        "total": 12
+      },
+      "notes": [
+        "liver mask: kept the largest of 7 components, dropped 9,701 stray voxels (0.76%)",
+        "pedicle skeletons: left=181, right=38, right_ant=84, right_post=255",
+        "portal bifurcation: left-right pedicle gap 7.6 mm",
+        "  snapped to VenaPorta centreline (9.5 mm away)",
+        "left pedicle: dropped 11/181 nodes lying >15 mm right of the bifurcation (main-trunk overlap)",
+        "transverse plane: 243 proximal points, tilt 26 deg from horizontal, planarity 0.51",
+        "IVC axis: 146/195 per-slice centroids inside the liver's S-range",
+        "MHV plane: 8471/9646 voxels within 70 mm of the IVC, planarity 0.92, 44 deg from expected",
+        "RHV plane: 14956/22278 voxels within 70 mm of the IVC, planarity 0.93, 10 deg from expected",
+        "LHV plane: 3199/3341 voxels within 70 mm of the IVC, planarity 0.99, 43 deg from expected",
+        "umbilical plane: trunk walk 51 nodes (40 mm), turn at node 50, sagittal through the umbilical point, 0 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): graph cut splits 85/85 nodes, 26 mm apart in R",
+        "  left lateral (II/III): graph cut splits 43/42 nodes, 11 mm apart in S",
+        "left pedicle seeds: IV=85 II=43 III=42",
+        "  right_ant (VIII/V): graph cut splits 45/39 nodes, 20 mm apart in S",
+        "right_ant seeds: VIII=45 V=39",
+        "  right_post (VII/VI): graph cut splits 207/48 nodes, 19 mm apart in S",
+        "right_post seeds: VII=207 VI=48",
+        "right trunk seeds split by nearest labelled sub-sector node: V=0 VI=0 VII=0 VIII=38",
+        "Voronoi: 1,265,597 liver voxels from 533 seeds",
+        "segment I (heuristic): 5492 voxels from 5492 candidates, 1 components"
+      ],
+      "seconds": 27.128640174865723
+    },
+    {
+      "case": "RMV2025_0002_MR_NCT_ARP_N",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.68, margin 0.16)",
+      "frame_confidence": 0.6800457727459632,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "mhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 37.356,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 11.13,
+        "5": 95.403,
+        "6": 375.737,
+        "7": 249.39000000000001,
+        "8": 1217.713
+      },
+      "volume_pct": {
+        "1": 1.8802765752148383,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.5602173220403991,
+        "5": 4.8020137623198735,
+        "6": 18.91234285098773,
+        "7": 12.55279406501843,
+        "8": 61.29235542441873
+      },
+      "volume_pct_other_mode": {
+        "1": 1.8802765752148383,
+        "2": 10.726827866306879,
+        "3": 0.0,
+        "4": 15.00426077235496,
+        "5": 3.340666995850969,
+        "6": 15.109609815933627,
+        "7": 13.034188356841824,
+        "8": 40.9041696174969
+      },
+      "mode_agreement": 0.610022806331412,
+      "mode_dice_per_segment": {
+        "1": 1.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.03377486870359351,
+        "5": 0.678592843057865,
+        "6": 0.8754356998715832,
+        "7": 0.6366790991926726,
+        "8": 0.6469694163816608
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            false,
+            "missing II, III"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            false,
+            "worst is II at 0%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            false,
+            "II above III (missing); VIII above V (-2 mm)"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +59 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +62 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            false,
+            "Dice 0.041 between the portal-derived left liver and the MHV (Cantlie) half-space"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.900 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.765 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            false,
+            "3/8 in range; outliers II=0.0%, III=0.0%, IV=0.6%, VI=18.9%, VIII=61.3%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            false,
+            "II+III+IV = 0.6%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.68, margin 0.16"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.0,
+          "anterior_posterior_gap_mm": 58.822815058522124,
+          "left_right_gap_mm": 61.84736296580316,
+          "dice_cantlie_vs_mhv": 0.040613397312509694,
+          "dice_right_sector_vs_rhv": 0.9002854548054654,
+          "dice_segment_iv_vs_lhv": 0.7648429697036955,
+          "segments_in_reference_range": 3,
+          "left_liver_pct": 0.5602173220403991,
+          "frame_confidence": 0.6800457727459632,
+          "mode_agreement": 0.610022806331412
+        },
+        "passed": 6,
+        "total": 12
+      },
+      "notes": [
+        "liver mask: kept the largest of 2 components, dropped 223 stray voxels (0.01%)",
+        "pedicle skeletons: left=77, right=36, right_ant=79, right_post=60",
+        "portal bifurcation: left-right pedicle gap 133.2 mm",
+        "transverse plane: too few proximal points -> pure axial through bifurcation",
+        "IVC axis: 147/225 per-slice centroids inside the liver's S-range",
+        "MHV plane: 7375/10902 voxels within 70 mm of the IVC, planarity 0.99, 32 deg from expected",
+        "RHV plane: 3291/3291 voxels within 70 mm of the IVC, planarity 0.97, 8 deg from expected",
+        "LHV plane: 6206/7919 voxels within 70 mm of the IVC, planarity 0.90, 7 deg from expected",
+        "umbilical plane: trunk walk 50 nodes (45 mm), turn at node 49, sagittal through the umbilical point, 0 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): relaxed graph cut splits 39/38 nodes, 5 mm apart in R",
+        "  left lateral (II/III): graph cut splits 12/26 nodes, 13 mm apart in S",
+        "left pedicle seeds: IV=39 II=12 III=26",
+        "  right_ant (VIII/V): relaxed graph cut splits 54/25 nodes, 7 mm apart in S",
+        "right_ant seeds: VIII=54 V=25",
+        "  ! right_post (VII/VI): no graph cut and the transverse split is degenerate -> median S (30/30)",
+        "right_post seeds: VII=30 VI=30",
+        "right trunk seeds split by nearest labelled sub-sector node: V=0 VI=0 VII=11 VIII=25",
+        "Voronoi: 1,986,729 liver voxels from 252 seeds",
+        "segment I (heuristic): 37356 voxels from 37357 candidates, 2 components"
+      ],
+      "seconds": 53.65303993225098
+    },
+    {
+      "case": "RMV2025_0003_CT_UTV_VEP_P",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.71, margin 0.17)",
+      "frame_confidence": 0.7071281214272993,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "mhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 10.991,
+        "2": 81.59100000000001,
+        "3": 54.641,
+        "4": 222.927,
+        "5": 363.128,
+        "6": 361.601,
+        "7": 172.203,
+        "8": 161.05
+      },
+      "volume_pct": {
+        "1": 0.7696067310304648,
+        "2": 5.7131273579753135,
+        "3": 3.826046892023986,
+        "4": 15.609691541118048,
+        "5": 25.426781277921084,
+        "6": 25.31985838844028,
+        "7": 12.057919015889286,
+        "8": 11.276968795601528
+      },
+      "volume_pct_other_mode": {
+        "1": 0.05671744628647772,
+        "2": 6.680124806390445,
+        "3": 7.9292390339268355,
+        "4": 7.220551041500365,
+        "5": 43.43057924617612,
+        "6": 27.18691269434478,
+        "7": 1.7920612380368202,
+        "8": 5.70381449333815
+      },
+      "mode_agreement": 0.6462427842804447,
+      "mode_dice_per_segment": {
+        "1": 0.13727650199135666,
+        "2": 0.9207647803290544,
+        "3": 0.5601110310279305,
+        "4": 0.5658526710954896,
+        "5": 0.6694340098477284,
+        "6": 0.7311733029634628,
+        "7": 0.22961030556735224,
+        "8": 0.6215217642304584
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            true,
+            "worst is VI at 97%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            false,
+            "VII above VI (-14 mm)"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +39 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +62 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.899 between the portal-derived left liver and the MHV (Cantlie) half-space"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            false,
+            "Dice 0.698 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.754 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            true,
+            "6/8 in range; outliers V=25.4%, VI=25.3%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            true,
+            "II+III+IV = 25.1%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.71, margin 0.17"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.974701397396578,
+          "anterior_posterior_gap_mm": 38.69869793161487,
+          "left_right_gap_mm": 62.10268772713839,
+          "dice_cantlie_vs_mhv": 0.8991423624705797,
+          "dice_right_sector_vs_rhv": 0.6978780993573731,
+          "dice_segment_iv_vs_lhv": 0.7539484939206941,
+          "segments_in_reference_range": 6,
+          "left_liver_pct": 25.14886579111735,
+          "frame_confidence": 0.7071281214272993,
+          "mode_agreement": 0.6462427842804447
+        },
+        "passed": 10,
+        "total": 12
+      },
+      "notes": [
+        "liver mask: kept the largest of 8 components, dropped 3,852 stray voxels (0.27%)",
+        "pedicle skeletons: left=99, right=41, right_ant=182, right_post=153",
+        "portal bifurcation: left-right pedicle gap 5.8 mm",
+        "  snapped to VenaPorta centreline (7.4 mm away)",
+        "left pedicle: dropped 13/99 nodes lying >15 mm right of the bifurcation (main-trunk overlap)",
+        "transverse plane: 188 proximal points, tilt 29 deg from horizontal, planarity 0.72",
+        "IVC axis: 145/222 per-slice centroids inside the liver's S-range",
+        "MHV plane: 710/710 voxels within 70 mm of the IVC, planarity 0.91, 29 deg from expected",
+        "RHV plane: 865/865 voxels within 70 mm of the IVC, planarity 0.92, 13 deg from expected",
+        "LHV plane: 2458/2458 voxels within 70 mm of the IVC, planarity 0.95, 29 deg from expected",
+        "umbilical plane: trunk walk 56 nodes (48 mm), turn at node 0, tilted along the umbilical portion (24 nodes, |A| 0.87), 7 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): graph cut splits 57/29 nodes, 15 mm apart in R",
+        "  left lateral (II/III): no usable graph cut -> transverse plane (7/22)",
+        "left pedicle seeds: IV=57 II=7 III=22",
+        "  right_ant (VIII/V): graph cut splits 86/96 nodes, 24 mm apart in S",
+        "right_ant seeds: VIII=86 V=96",
+        "  right_post (VII/VI): relaxed graph cut splits 64/89 nodes, 6 mm apart in S",
+        "right_post seeds: VII=64 VI=89",
+        "right trunk seeds split by nearest labelled sub-sector node: V=6 VI=16 VII=19 VIII=0",
+        "Voronoi: 1,428,132 liver voxels from 444 seeds",
+        "segment I (heuristic): 10991 voxels from 11000 candidates, 2 components"
+      ],
+      "seconds": 69.82787728309631
+    },
+    {
+      "case": "RMV2025_0004_CT_UTV_VEP_N",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.77, margin 0.27)",
+      "frame_confidence": 0.7689692486271057,
+      "frame_warnings": [
+        "S: 'classLiver - _extrahepatic_ivc' points the wrong way (alignment -0.24) -- outvoted"
+      ],
+      "planes": [
+        "lhv",
+        "mhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 26.262,
+        "2": 70.752,
+        "3": 88.641,
+        "4": 237.472,
+        "5": 214.294,
+        "6": 391.296,
+        "7": 228.321,
+        "8": 237.778
+      },
+      "volume_pct": {
+        "1": 1.7568717487637273,
+        "2": 4.733157793333762,
+        "3": 5.929893712670991,
+        "4": 15.886369961252756,
+        "5": 14.33581123027851,
+        "6": 26.17686725322715,
+        "7": 15.274187592319054,
+        "8": 15.906840708154046
+      },
+      "volume_pct_other_mode": {
+        "1": 0.875090981097339,
+        "2": 4.746738060068932,
+        "3": 11.606445207972085,
+        "4": 16.46603996746088,
+        "5": 23.760315650889474,
+        "6": 11.581492304069531,
+        "7": 17.756165307302037,
+        "8": 13.207712521139726
+      },
+      "mode_agreement": 0.7101141545180143,
+      "mode_dice_per_segment": {
+        "1": 0.6236941768548407,
+        "2": 0.9985674666741939,
+        "3": 0.6251029999694815,
+        "4": 0.6401659191619676,
+        "5": 0.6056926915870454,
+        "6": 0.6056256178931217,
+        "7": 0.9194135410527339,
+        "8": 0.7876307705033674
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            true,
+            "worst is VIII at 100%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            false,
+            "II above III (-9 mm)"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +36 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +78 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.870 between the portal-derived left liver and the MHV (Cantlie) half-space"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.759 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.872 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            true,
+            "7/8 in range; outliers VI=26.2%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            true,
+            "II+III+IV = 26.5%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.77, margin 0.27"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.999974766378723,
+          "anterior_posterior_gap_mm": 35.95289050736416,
+          "left_right_gap_mm": 78.05619051398835,
+          "dice_cantlie_vs_mhv": 0.8695761896500055,
+          "dice_right_sector_vs_rhv": 0.7586111594767665,
+          "dice_segment_iv_vs_lhv": 0.8718729423803593,
+          "segments_in_reference_range": 7,
+          "left_liver_pct": 26.54942146725751,
+          "frame_confidence": 0.7689692486271057,
+          "mode_agreement": 0.7101141545180143
+        },
+        "passed": 11,
+        "total": 12
+      },
+      "notes": [
+        "liver mask: kept the largest of 4 components, dropped 16,232 stray voxels (1.07%)",
+        "pedicle skeletons: left=93, right=46, right_ant=68, right_post=157",
+        "portal bifurcation: left-right pedicle gap 5.5 mm",
+        "  snapped to VenaPorta centreline (19.1 mm away)",
+        "transverse plane: fitted normal tilted 62 deg from vertical (> 50) -> pure axial fallback",
+        "IVC axis: 163/233 per-slice centroids inside the liver's S-range",
+        "MHV plane: 10500/11336 voxels within 70 mm of the IVC, planarity 0.92, 25 deg from expected",
+        "RHV plane: 17495/18158 voxels within 70 mm of the IVC, planarity 0.95, 9 deg from expected",
+        "LHV plane: 4582/4830 voxels within 70 mm of the IVC, planarity 0.98, 37 deg from expected",
+        "umbilical plane: trunk walk 27 nodes (27 mm), turn at node 20, tilted along the umbilical portion (27 nodes, |A| 0.76), 40 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): graph cut splits 47/46 nodes, 39 mm apart in R",
+        "  ! left lateral (II/III): no graph cut and the transverse split is degenerate -> median S (19/27)",
+        "left pedicle seeds: IV=47 II=19 III=27",
+        "  right_ant (VIII/V): graph cut splits 34/34 nodes, 16 mm apart in S",
+        "right_ant seeds: VIII=34 V=34",
+        "  right_post (VII/VI): graph cut splits 79/78 nodes, 18 mm apart in S",
+        "right_post seeds: VII=79 VI=78",
+        "right trunk seeds split by nearest labelled sub-sector node: V=0 VI=0 VII=0 VIII=46",
+        "Voronoi: 1,494,816 liver voxels from 352 seeds",
+        "segment I (heuristic): 26262 voxels from 26284 candidates, 3 components"
+      ],
+      "seconds": 33.9554226398468
+    },
+    {
+      "case": "RMV2025_0006_CT_UTV_VEP_J",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.76, margin 0.24)",
+      "frame_confidence": 0.7565662876248422,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "mhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 20.458000000000002,
+        "2": 0.0,
+        "3": 133.866,
+        "4": 518.47,
+        "5": 76.127,
+        "6": 0.0,
+        "7": 0.0,
+        "8": 1031.059
+      },
+      "volume_pct": {
+        "1": 1.1493387566152429,
+        "2": 0.0,
+        "3": 7.520646299396623,
+        "4": 29.127855369161452,
+        "5": 4.276845807256261,
+        "6": 0.0,
+        "7": 0.0,
+        "8": 57.925313767570415
+      },
+      "volume_pct_other_mode": {
+        "1": 0.44871290688659426,
+        "2": 0.0,
+        "3": 18.43127450870234,
+        "4": 12.10159664715334,
+        "5": 0.0,
+        "6": 0.0,
+        "7": 0.0,
+        "8": 69.01841593725773
+      },
+      "mode_agreement": 0.7424341846537602,
+      "mode_dice_per_segment": {
+        "1": 0.5615749692388821,
+        "2": 0.0,
+        "3": 0.5590651579537558,
+        "4": 0.47395472804669997,
+        "5": 0.0,
+        "6": 0.0,
+        "7": 0.0,
+        "8": 0.8944096959912338
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            false,
+            "missing II, VI, VII"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            false,
+            "worst is II at 0%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            false,
+            "II above III (missing); VII above VI (missing)"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            false,
+            "V+VIII are +0 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +48 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.705 between the portal-derived left liver and the MHV (Cantlie) half-space"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.723 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.909 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            false,
+            "3/8 in range; outliers II=0.0%, IV=29.1%, VI=0.0%, VII=0.0%, VIII=57.9%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            true,
+            "II+III+IV = 36.6%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.76, margin 0.24"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.0,
+          "anterior_posterior_gap_mm": 0.0,
+          "left_right_gap_mm": 48.406939918742694,
+          "dice_cantlie_vs_mhv": 0.7047210979352904,
+          "dice_right_sector_vs_rhv": 0.7232052197949514,
+          "dice_segment_iv_vs_lhv": 0.9094311679834668,
+          "segments_in_reference_range": 3,
+          "left_liver_pct": 36.648501668558076,
+          "frame_confidence": 0.7565662876248422,
+          "mode_agreement": 0.7424341846537602
+        },
+        "passed": 7,
+        "total": 12
+      },
+      "notes": [
+        "liver mask: kept the largest of 2 components, dropped 420,331 stray voxels (19.10%)",
+        "pedicle skeletons: left=24, right=54",
+        "portal bifurcation: left-right pedicle gap 29.7 mm",
+        "  snapped to VenaPorta centreline (19.9 mm away)",
+        "transverse plane: fitted normal tilted 71 deg from vertical (> 50) -> pure axial fallback",
+        "IVC axis: 121/251 per-slice centroids inside the liver's S-range",
+        "MHV plane: 13666/18676 voxels within 70 mm of the IVC, planarity 0.97, 47 deg from expected",
+        "RHV plane: 34520/54550 voxels within 70 mm of the IVC, planarity 0.94, 16 deg from expected",
+        "LHV plane: 8253/8253 voxels within 70 mm of the IVC, planarity 0.95, 13 deg from expected",
+        "umbilical plane: trunk walk 9 nodes (9 mm), turn at node 5, tilted along the umbilical portion (9 nodes, |A| 0.88), 11 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): no usable graph cut -> umbilical plane (18/6)",
+        "  ! left lateral territory has too few nodes to split II/III",
+        "left pedicle seeds: IV=18 II=0 III=6",
+        "right trunk seeds split by RHV plane (no sub-sector labels available): V=16 VI=0 VII=0 VIII=38",
+        "Voronoi: 1,779,980 liver voxels from 60 seeds",
+        "segment I (heuristic): 20458 voxels from 20458 candidates, 1 components"
+      ],
+      "seconds": 22.162297010421753
+    },
+    {
+      "case": "RMV2025_0007_CT_UTV_VEP_H",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.74, margin 0.26)",
+      "frame_confidence": 0.7391463858587711,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "mhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 23.276,
+        "2": 244.757,
+        "3": 348.613,
+        "4": 59.955,
+        "5": 323.055,
+        "6": 458.06100000000004,
+        "7": 7.952,
+        "8": 128.274
+      },
+      "volume_pct": {
+        "1": 1.4602780651503848,
+        "2": 15.355442446812717,
+        "3": 21.87110831441275,
+        "4": 3.7614268515248037,
+        "5": 20.267663272777007,
+        "6": 28.737602285652628,
+        "7": 0.49888860517596934,
+        "8": 8.047590158493747
+      },
+      "volume_pct_other_mode": {
+        "1": 1.6461065420783556,
+        "2": 17.725602483903124,
+        "3": 16.61797190991146,
+        "4": 5.312486080117043,
+        "5": 26.887410653956884,
+        "6": 16.15810603014035,
+        "7": 0.0,
+        "8": 15.652316299892783
+      },
+      "mode_agreement": 0.7356837728827191,
+      "mode_dice_per_segment": {
+        "1": 0.6356989942238559,
+        "2": 0.8804630442657119,
+        "3": 0.855225967980127,
+        "4": 0.02083895100011754,
+        "5": 0.8416431066023615,
+        "6": 0.6505732156531752,
+        "7": 0.0,
+        "8": 0.5921437515055736
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            true,
+            "worst is VII at 94%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            false,
+            "VII above VI (-11 mm)"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +42 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +81 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.933 between the portal-derived left liver and the MHV (Cantlie) half-space"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.772 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            false,
+            "Dice 0.203 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            false,
+            "1/8 in range; outliers II=15.4%, III=21.9%, IV=3.8%, V=20.3%, VI=28.7%, VII=0.5%, VIII=8.0%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            true,
+            "II+III+IV = 41.0%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.74, margin 0.26"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.9412726358148893,
+          "anterior_posterior_gap_mm": 42.04579989654836,
+          "left_right_gap_mm": 81.16119499191541,
+          "dice_cantlie_vs_mhv": 0.9330404724402245,
+          "dice_right_sector_vs_rhv": 0.7717518898529468,
+          "dice_segment_iv_vs_lhv": 0.20336147449370515,
+          "segments_in_reference_range": 1,
+          "left_liver_pct": 40.98797761275027,
+          "frame_confidence": 0.7391463858587711,
+          "mode_agreement": 0.7356837728827191
+        },
+        "passed": 9,
+        "total": 12
+      },
+      "notes": [
+        "liver mask: kept the largest of 2 components, dropped 438 stray voxels (0.03%)",
+        "pedicle skeletons: left=97, right=21, right_ant=50, right_post=47",
+        "portal bifurcation: left-right pedicle gap 1.0 mm",
+        "transverse plane: 208 proximal points, tilt 46 deg from horizontal, planarity 0.79",
+        "IVC axis: 131/222 per-slice centroids inside the liver's S-range",
+        "MHV plane: 4443/4600 voxels within 70 mm of the IVC, planarity 0.97, 29 deg from expected",
+        "RHV plane: 9446/10038 voxels within 70 mm of the IVC, planarity 0.99, 3 deg from expected",
+        "LHV plane: 4560/5088 voxels within 70 mm of the IVC, planarity 0.96, 30 deg from expected",
+        "umbilical plane: trunk walk 12 nodes (11 mm), turn at node 0, sagittal through the umbilical point, 0 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): graph cut splits 45/52 nodes, 18 mm apart in R",
+        "  left lateral (II/III): relaxed graph cut splits 26/26 nodes, 7 mm apart in S",
+        "left pedicle seeds: IV=45 II=26 III=26",
+        "  ! right_ant (VIII/V): no graph cut and the transverse split is degenerate -> median S (23/27)",
+        "right_ant seeds: VIII=23 V=27",
+        "  ! right_post (VII/VI): no graph cut and the transverse split is degenerate -> median S (5/42)",
+        "right_post seeds: VII=5 VI=42",
+        "right trunk seeds split by nearest labelled sub-sector node: V=0 VI=21 VII=0 VIII=0",
+        "Voronoi: 1,593,943 liver voxels from 163 seeds",
+        "segment I (heuristic): 23276 voxels from 23290 candidates, 2 components"
+      ],
+      "seconds": 50.02950835227966
+    },
+    {
+      "case": "RMV2025_0008_CT_UTV_VEP_F",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.84, margin 0.27)",
+      "frame_confidence": 0.8409768564249808,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "mhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 20.03,
+        "2": 242.52700000000002,
+        "3": 215.746,
+        "4": 95.07300000000001,
+        "5": 55.585,
+        "6": 464.81,
+        "7": 182.661,
+        "8": 289.844
+      },
+      "volume_pct": {
+        "1": 1.278829529406056,
+        "2": 15.484308001910263,
+        "3": 13.774456098414328,
+        "4": 6.07000298797913,
+        "5": 3.5488636740906454,
+        "6": 29.676123492922063,
+        "7": 11.662120852263584,
+        "8": 18.505295363013925
+      },
+      "volume_pct_other_mode": {
+        "1": 1.2193891753432984,
+        "2": 14.531155428545162,
+        "3": 0.42897931143680934,
+        "4": 18.825162359635208,
+        "5": 5.8008933291450555,
+        "6": 23.286381199737466,
+        "7": 6.813869330820366,
+        "8": 29.09416986533663
+      },
+      "mode_agreement": 0.641025591913558,
+      "mode_dice_per_segment": {
+        "1": 0.9762069053643078,
+        "2": 0.8607030045200744,
+        "3": 0.057761895129570945,
+        "4": 0.04366971253593621,
+        "5": 0.6950144424793264,
+        "6": 0.863874995630103,
+        "7": 0.7060421238142959,
+        "8": 0.6875777122323581
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            true,
+            "worst is VII at 86%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            true,
+            "II>III, VIII>V, VII>VI all hold"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +53 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +64 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.854 between the portal-derived left liver and the MHV (Cantlie) half-space"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.787 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            false,
+            "Dice 0.384 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            false,
+            "3/8 in range; outliers II=15.5%, III=13.8%, IV=6.1%, V=3.5%, VI=29.7%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            true,
+            "II+III+IV = 35.3%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.84, margin 0.27"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.8553166795320293,
+          "anterior_posterior_gap_mm": 53.446628576889495,
+          "left_right_gap_mm": 63.89633019641771,
+          "dice_cantlie_vs_mhv": 0.8540112841871847,
+          "dice_right_sector_vs_rhv": 0.7870334928229665,
+          "dice_segment_iv_vs_lhv": 0.3837733340651433,
+          "segments_in_reference_range": 3,
+          "left_liver_pct": 35.32876708830372,
+          "frame_confidence": 0.8409768564249808,
+          "mode_agreement": 0.641025591913558
+        },
+        "passed": 10,
+        "total": 12
+      },
+      "notes": [
+        "liver mask: kept the largest of 2 components, dropped 3,839 stray voxels (0.24%)",
+        "pedicle skeletons: left=75, right=38, right_ant=28, right_post=69",
+        "portal bifurcation: left-right pedicle gap 3.3 mm",
+        "  snapped to VenaPorta centreline (11.9 mm away)",
+        "transverse plane: 221 proximal points, tilt 46 deg from horizontal, planarity 0.59",
+        "IVC axis: 143/245 per-slice centroids inside the liver's S-range",
+        "MHV plane: 7947/8638 voxels within 70 mm of the IVC, planarity 0.96, 50 deg from expected",
+        "RHV plane: 6819/6836 voxels within 70 mm of the IVC, planarity 0.93, 5 deg from expected",
+        "LHV plane: 1695/1695 voxels within 70 mm of the IVC, planarity 0.94, 22 deg from expected",
+        "umbilical plane: trunk walk 7 nodes (7 mm), turn at node 0, tilted along the umbilical portion (7 nodes, |A| 0.74), 43 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): graph cut splits 29/46 nodes, 13 mm apart in R",
+        "  left lateral (II/III): no usable graph cut -> transverse plane (29/17)",
+        "left pedicle seeds: IV=29 II=29 III=17",
+        "  ! right_ant (VIII/V): no graph cut and the transverse split is degenerate -> median S (9/19)",
+        "right_ant seeds: VIII=9 V=19",
+        "  ! right_post (VII/VI): no graph cut and the transverse split is degenerate -> median S (23/46)",
+        "right_post seeds: VII=23 VI=46",
+        "right trunk seeds split by nearest labelled sub-sector node: V=0 VI=0 VII=38 VIII=0",
+        "Voronoi: 1,566,276 liver voxels from 182 seeds",
+        "segment I (heuristic): 20030 voxels from 20034 candidates, 5 components"
+      ],
+      "seconds": 20.748384714126587
+    },
+    {
+      "case": "RMV2025_0010_CT_UTV_VEP_U",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.77, margin 0.21)",
+      "frame_confidence": 0.7669967088638958,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "mhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 21.584,
+        "2": 27.969,
+        "3": 74.443,
+        "4": 179.485,
+        "5": 334.132,
+        "6": 102.086,
+        "7": 174.642,
+        "8": 273.281
+      },
+      "volume_pct": {
+        "1": 1.81741328469833,
+        "2": 2.355042260921404,
+        "3": 6.268240231319393,
+        "4": 15.112973656601174,
+        "5": 28.134541125038098,
+        "6": 8.595832680768797,
+        "7": 14.705183972678174,
+        "8": 23.010772787974627
+      },
+      "volume_pct_other_mode": {
+        "1": 2.0428217058963205,
+        "2": 7.398482008585223,
+        "3": 9.543187984055534,
+        "4": 9.639346526083214,
+        "5": 23.022645252445646,
+        "6": 10.433370213754882,
+        "7": 14.479943955231546,
+        "8": 23.440202353947637
+      },
+      "mode_agreement": 0.8159439619676968,
+      "mode_dice_per_segment": {
+        "1": 0.8804013523830297,
+        "2": 0.4328743471316959,
+        "3": 0.768047715411652,
+        "4": 0.47976622987848855,
+        "5": 0.8471082405843761,
+        "6": 0.8022832363547866,
+        "7": 0.9559013182000468,
+        "8": 0.9698039741725912
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            true,
+            "worst is II at 100%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            true,
+            "II>III, VIII>V, VII>VI all hold"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +45 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +91 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.892 between the portal-derived left liver and the MHV (Cantlie) half-space"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.950 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.720 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            true,
+            "7/8 in range; outliers V=28.1%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            false,
+            "II+III+IV = 23.7%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.77, margin 0.21"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.998391075833959,
+          "anterior_posterior_gap_mm": 45.07332838241807,
+          "left_right_gap_mm": 90.78559648013817,
+          "dice_cantlie_vs_mhv": 0.8917716695907987,
+          "dice_right_sector_vs_rhv": 0.9499712295679752,
+          "dice_segment_iv_vs_lhv": 0.7204256275758711,
+          "segments_in_reference_range": 7,
+          "left_liver_pct": 23.73625614884197,
+          "frame_confidence": 0.7669967088638958,
+          "mode_agreement": 0.8159439619676968
+        },
+        "passed": 11,
+        "total": 12
+      },
+      "notes": [
+        "liver mask: kept the largest of 10 components, dropped 31,828 stray voxels (2.61%)",
+        "pedicle skeletons: left=150, right=25, right_ant=113, right_post=115",
+        "portal bifurcation: left-right pedicle gap 19.9 mm",
+        "  snapped to VenaPorta centreline (1.7 mm away)",
+        "transverse plane: fitted normal tilted 67 deg from vertical (> 50) -> pure axial fallback",
+        "IVC axis: 145/206 per-slice centroids inside the liver's S-range",
+        "MHV plane: 12023/12023 voxels within 70 mm of the IVC, planarity 0.76, 45 deg from expected",
+        "RHV plane: 25554/29567 voxels within 70 mm of the IVC, planarity 0.95, 27 deg from expected",
+        "LHV plane: 9222/9600 voxels within 70 mm of the IVC, planarity 0.99, 50 deg from expected",
+        "umbilical plane: trunk walk 40 nodes (16 mm), turn at node 26, tilted along the umbilical portion (40 nodes, |A| 0.63), 49 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): graph cut splits 105/45 nodes, 20 mm apart in R",
+        "  left lateral (II/III): relaxed graph cut splits 21/24 nodes, 8 mm apart in S",
+        "left pedicle seeds: IV=105 II=21 III=24",
+        "  right_ant (VIII/V): graph cut splits 48/65 nodes, 20 mm apart in S",
+        "right_ant seeds: VIII=48 V=65",
+        "  right_post (VII/VI): graph cut splits 57/58 nodes, 18 mm apart in S",
+        "right_post seeds: VII=57 VI=58",
+        "right trunk seeds split by nearest labelled sub-sector node: V=24 VI=1 VII=0 VIII=0",
+        "Voronoi: 1,187,622 liver voxels from 398 seeds",
+        "segment I (heuristic): 21584 voxels from 22821 candidates, 3 components"
+      ],
+      "seconds": 35.148563861846924
+    },
+    {
+      "case": "RMV2025_0011_CT_UTV_VEP_S",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.69, margin 0.01)",
+      "frame_confidence": 0.689822258831817,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 21.543,
+        "2": 121.686,
+        "3": 120.369,
+        "4": 271.298,
+        "5": 251.401,
+        "6": 212.946,
+        "7": 368.216,
+        "8": 411.92
+      },
+      "volume_pct": {
+        "1": 1.2107032846852748,
+        "2": 6.8386779882194855,
+        "3": 6.764663402231902,
+        "4": 15.246779915914484,
+        "5": 14.12858081386821,
+        "6": 11.967433582165462,
+        "7": 20.69351161275928,
+        "8": 23.149649400155894
+      },
+      "volume_pct_other_mode": {
+        "1": 0.49438596274318175,
+        "2": 6.896731949742017,
+        "3": 11.9675459809293,
+        "4": 10.5331129568237,
+        "5": 23.886648094644254,
+        "6": 4.2740191943369,
+        "7": 21.887692279160312,
+        "8": 20.05986358162033
+      },
+      "mode_agreement": 0.8017117207744949,
+      "mode_dice_per_segment": {
+        "1": 0.5688200395517469,
+        "2": 0.9957734088909801,
+        "3": 0.7179531797058056,
+        "4": 0.8142578729600934,
+        "5": 0.7354675615543252,
+        "6": 0.4813613982152064,
+        "7": 0.8606814741296139,
+        "8": 0.8986201667141395
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            true,
+            "worst is VIII at 97%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            true,
+            "II>III, VIII>V, VII>VI all hold"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +55 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +42 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            false,
+            "no MHV plane for this case"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.824 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.897 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            true,
+            "8/8 in range; outliers "
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            true,
+            "II+III+IV = 28.9%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.69, margin 0.01"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.9749028937657798,
+          "anterior_posterior_gap_mm": 55.17360634484448,
+          "left_right_gap_mm": 41.8590610299681,
+          "dice_right_sector_vs_rhv": 0.8237676094155243,
+          "dice_segment_iv_vs_lhv": 0.8974523224319564,
+          "segments_in_reference_range": 8,
+          "left_liver_pct": 28.85012130636587,
+          "frame_confidence": 0.689822258831817,
+          "mode_agreement": 0.8017117207744949
+        },
+        "passed": 11,
+        "total": 12
+      },
+      "notes": [
+        "liver mask: kept the largest of 4 components, dropped 373 stray voxels (0.02%)",
+        "pedicle skeletons: left=124, right=31, right_ant=161, right_post=97",
+        "portal bifurcation: left-right pedicle gap 3.7 mm",
+        "  snapped to VenaPorta centreline (7.2 mm away)",
+        "left pedicle: dropped 26/124 nodes lying >15 mm right of the bifurcation (main-trunk overlap)",
+        "transverse plane: 227 proximal points, tilt 49 deg from horizontal, planarity 0.88",
+        "IVC axis: 150/224 per-slice centroids inside the liver's S-range",
+        "! MHV plane: normal 69 deg from the expected direction (>55) -- implausible scissura, skipped",
+        "RHV plane: 12253/15404 voxels within 70 mm of the IVC, planarity 0.95, 27 deg from expected",
+        "LHV plane: 8733/10081 voxels within 70 mm of the IVC, planarity 0.91, 15 deg from expected",
+        "umbilical plane: trunk walk 35 nodes (35 mm), turn at node 0, tilted along the umbilical portion (25 nodes, |A| 0.91), 12 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): graph cut splits 49/49 nodes, 33 mm apart in R",
+        "  left lateral (II/III): graph cut splits 25/24 nodes, 8 mm apart in S",
+        "left pedicle seeds: IV=49 II=25 III=24",
+        "  right_ant (VIII/V): graph cut splits 86/75 nodes, 36 mm apart in S",
+        "right_ant seeds: VIII=86 V=75",
+        "  right_post (VII/VI): graph cut splits 58/39 nodes, 17 mm apart in S",
+        "right_post seeds: VII=58 VI=39",
+        "right trunk seeds split by nearest labelled sub-sector node: V=8 VI=6 VII=0 VIII=17",
+        "Voronoi: 1,779,379 liver voxels from 370 seeds",
+        "segment I (heuristic): 21543 voxels from 21548 candidates, 5 components"
+      ],
+      "seconds": 47.87443447113037
+    },
+    {
+      "case": "RMV2025_0012_CT_UTV_VEP_Q",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.79, margin 0.28)",
+      "frame_confidence": 0.7907401613337488,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "mhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 19.389,
+        "2": 191.005,
+        "3": 86.912,
+        "4": 317.599,
+        "5": 380.772,
+        "6": 380.664,
+        "7": 255.62,
+        "8": 204.612
+      },
+      "volume_pct": {
+        "1": 1.0557162715557726,
+        "2": 10.400076664526813,
+        "3": 4.732292155008269,
+        "4": 17.293023473610905,
+        "5": 20.7327451726667,
+        "6": 20.72686465498513,
+        "7": 13.91831416447917,
+        "8": 11.140967443167249
+      },
+      "volume_pct_other_mode": {
+        "1": 0.2854773537452636,
+        "2": 11.279105159446425,
+        "3": 6.7931958054485175,
+        "4": 14.610037281393117,
+        "5": 27.792905591011085,
+        "6": 15.121315624263234,
+        "7": 11.893564807933036,
+        "8": 12.224398376759323
+      },
+      "mode_agreement": 0.7928990571025492,
+      "mode_dice_per_segment": {
+        "1": 0.0,
+        "2": 0.9331163318715874,
+        "3": 0.5533887014938065,
+        "4": 0.6886809358908935,
+        "5": 0.7625641123462622,
+        "6": 0.8338036811679612,
+        "7": 0.8575731878646736,
+        "8": 0.8975536094630432
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            true,
+            "worst is III at 100%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            false,
+            "II above III (-4 mm)"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +58 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +76 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.924 between the portal-derived left liver and the MHV (Cantlie) half-space"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.871 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.804 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            true,
+            "6/8 in range; outliers V=20.7%, VI=20.7%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            true,
+            "II+III+IV = 32.4%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.79, margin 0.28"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.999827411634757,
+          "anterior_posterior_gap_mm": 57.72573290407199,
+          "left_right_gap_mm": 76.15069764999862,
+          "dice_cantlie_vs_mhv": 0.9236982033215819,
+          "dice_right_sector_vs_rhv": 0.8708651592611932,
+          "dice_segment_iv_vs_lhv": 0.8040702673202258,
+          "segments_in_reference_range": 6,
+          "left_liver_pct": 32.42539229314599,
+          "frame_confidence": 0.7907401613337488,
+          "mode_agreement": 0.7928990571025492
+        },
+        "passed": 11,
+        "total": 12
+      },
+      "notes": [
+        "liver mask: kept the largest of 7 components, dropped 33,943 stray voxels (1.81%)",
+        "pedicle skeletons: left=90, right_ant=59, right_post=58",
+        "portal bifurcation: left-right pedicle gap 12.4 mm",
+        "  snapped to VenaPorta centreline (9.9 mm away)",
+        "transverse plane: 172 proximal points, tilt 43 deg from horizontal, planarity 0.85",
+        "IVC axis: 161/296 per-slice centroids inside the liver's S-range",
+        "MHV plane: 7268/7784 voxels within 70 mm of the IVC, planarity 0.92, 36 deg from expected",
+        "RHV plane: 8048/8522 voxels within 70 mm of the IVC, planarity 0.97, 4 deg from expected",
+        "LHV plane: 3309/3309 voxels within 70 mm of the IVC, planarity 0.98, 43 deg from expected",
+        "umbilical plane: trunk walk 34 nodes (29 mm), turn at node 21, tilted along the umbilical portion (34 nodes, |A| 0.74), 23 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): graph cut splits 46/44 nodes, 25 mm apart in R",
+        "  left lateral (II/III): relaxed graph cut splits 22/22 nodes, 6 mm apart in S",
+        "left pedicle seeds: IV=46 II=22 III=22",
+        "  right_ant (VIII/V): relaxed graph cut splits 10/49 nodes, 6 mm apart in S",
+        "right_ant seeds: VIII=10 V=49",
+        "  ! right_post (VII/VI): no graph cut and the transverse split is degenerate -> median S (28/30)",
+        "right_post seeds: VII=28 VI=30",
+        "Voronoi: 1,836,573 liver voxels from 205 seeds",
+        "segment I (heuristic): 19389 voxels from 24635 candidates, 5 components"
+      ],
+      "seconds": 72.96480083465576
+    },
+    {
+      "case": "RMV2025_0013_CT_UTV_VEP_O",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.81, margin 0.32)",
+      "frame_confidence": 0.8145931235505567,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "mhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 11.823,
+        "2": 127.277,
+        "3": 76.73,
+        "4": 289.748,
+        "5": 203.565,
+        "6": 197.476,
+        "7": 395.003,
+        "8": 253.06900000000002
+      },
+      "volume_pct": {
+        "1": 0.7604726598404441,
+        "2": 8.186642876301464,
+        "3": 4.9353858741061725,
+        "4": 18.637015329734332,
+        "5": 13.09359866365728,
+        "6": 12.701945274012648,
+        "7": 25.407170942650335,
+        "8": 16.277768379697317
+      },
+      "volume_pct_other_mode": {
+        "1": 0.9356843256955883,
+        "2": 13.646377318708346,
+        "3": 4.150149450919829,
+        "4": 17.253717941378707,
+        "5": 17.648330118332197,
+        "6": 3.831822529364356,
+        "7": 25.30116917123724,
+        "8": 17.232749144363734
+      },
+      "mode_agreement": 0.6720936829247741,
+      "mode_dice_per_segment": {
+        "1": 0.3708759954493743,
+        "2": 0.7398508113458796,
+        "3": 0.06351768470534931,
+        "4": 0.5062707216975214,
+        "5": 0.5009352599269368,
+        "6": 0.4224019544911671,
+        "7": 0.9151426128738467,
+        "8": 0.8982254767411729
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            true,
+            "worst is V at 100%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            false,
+            "II above III (-5 mm)"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +41 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +100 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.919 between the portal-derived left liver and the MHV (Cantlie) half-space"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.800 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            false,
+            "Dice 0.688 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            true,
+            "7/8 in range; outliers VII=25.4%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            true,
+            "II+III+IV = 31.8%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.81, margin 0.32"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.9999459632058556,
+          "anterior_posterior_gap_mm": 40.86771750700909,
+          "left_right_gap_mm": 99.7291994810579,
+          "dice_cantlie_vs_mhv": 0.919324930570391,
+          "dice_right_sector_vs_rhv": 0.8001953126848208,
+          "dice_segment_iv_vs_lhv": 0.6882752232778683,
+          "segments_in_reference_range": 7,
+          "left_liver_pct": 31.75904408014197,
+          "frame_confidence": 0.8145931235505567,
+          "mode_agreement": 0.6720936829247741
+        },
+        "passed": 10,
+        "total": 12
+      },
+      "notes": [
+        "liver mask: kept the largest of 7 components, dropped 6,432 stray voxels (0.41%)",
+        "pedicle skeletons: left=114, right=42, right_ant=115, right_post=128",
+        "portal bifurcation: left-right pedicle gap 9.4 mm",
+        "  snapped to VenaPorta centreline (1.1 mm away)",
+        "transverse plane: 255 proximal points, tilt 24 deg from horizontal, planarity 0.65",
+        "IVC axis: 154/222 per-slice centroids inside the liver's S-range",
+        "MHV plane: 5269/5269 voxels within 70 mm of the IVC, planarity 0.85, 27 deg from expected",
+        "RHV plane: 8097/8313 voxels within 70 mm of the IVC, planarity 0.97, 10 deg from expected",
+        "LHV plane: 6105/6105 voxels within 70 mm of the IVC, planarity 0.93, 42 deg from expected",
+        "umbilical plane: trunk walk 52 nodes (54 mm), turn at node 51, sagittal through the umbilical point, 0 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): graph cut splits 71/43 nodes, 20 mm apart in R",
+        "  left lateral (II/III): relaxed graph cut splits 22/21 nodes, 6 mm apart in S",
+        "left pedicle seeds: IV=71 II=22 III=21",
+        "  right_ant (VIII/V): graph cut splits 48/67 nodes, 13 mm apart in S",
+        "right_ant seeds: VIII=48 V=67",
+        "  right_post (VII/VI): graph cut splits 64/64 nodes, 24 mm apart in S",
+        "right_post seeds: VII=64 VI=64",
+        "right trunk seeds split by nearest labelled sub-sector node: V=42 VI=0 VII=0 VIII=0",
+        "Voronoi: 1,554,691 liver voxels from 382 seeds",
+        "segment I (heuristic): 11823 voxels from 11823 candidates, 1 components"
+      ],
+      "seconds": 39.84421706199646
+    },
+    {
+      "case": "RMV2025_0014_CT_UTV_VEP_M",
+      "mode": "voronoi",
+      "frame": "R=axis2- A=axis0- S=axis1+ (confidence 0.70, margin 0.12)",
+      "frame_confidence": 0.7032877578336711,
+      "frame_warnings": [
+        "R: 'classIVC - classAorta' points the wrong way (alignment -0.09) -- outvoted",
+        "R: 'classLiver - classIVC' points the wrong way (alignment -0.01) -- outvoted",
+        "S: 'classLiver - _extrahepatic_ivc' points the wrong way (alignment -0.13) -- outvoted"
+      ],
+      "planes": [
+        "lhv",
+        "mhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 22.342,
+        "2": 0.0,
+        "3": 422.567,
+        "4": 94.714,
+        "5": 300.42900000000003,
+        "6": 0.0,
+        "7": 0.0,
+        "8": 377.548
+      },
+      "volume_pct": {
+        "1": 1.8349211563731929,
+        "2": 0.0,
+        "3": 34.70491130091984,
+        "4": 7.778745072273323,
+        "5": 24.67386662286465,
+        "6": 0.0,
+        "7": 0.0,
+        "8": 31.007555847568987
+      },
+      "volume_pct_other_mode": {
+        "1": 1.6732095926412616,
+        "2": 0.0,
+        "3": 33.29574572930355,
+        "4": 25.708196452036795,
+        "5": 19.826872536136662,
+        "6": 0.0,
+        "7": 0.0,
+        "8": 19.495975689881732
+      },
+      "mode_agreement": 0.7445285808147175,
+      "mode_dice_per_segment": {
+        "1": 0.7784618986304577,
+        "2": 0.0,
+        "3": 0.9048378213861271,
+        "4": 0.2733477707443769,
+        "5": 0.8315686705140438,
+        "6": 0.0,
+        "7": 0.0,
+        "8": 0.7620497259042072
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            false,
+            "missing II, VI, VII"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            false,
+            "worst is II at 0%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            false,
+            "II above III (missing); VII above VI (missing)"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            false,
+            "V+VIII are +0 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +71 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.797 between the portal-derived left liver and the MHV (Cantlie) half-space"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.833 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            false,
+            "Dice 0.375 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            false,
+            "1/8 in range; outliers II=0.0%, III=34.7%, IV=7.8%, V=24.7%, VI=0.0%, VII=0.0%, VIII=31.0%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            true,
+            "II+III+IV = 42.5%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.70, margin 0.12"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.0,
+          "anterior_posterior_gap_mm": 0.0,
+          "left_right_gap_mm": 71.37465443270128,
+          "dice_cantlie_vs_mhv": 0.7966805311150216,
+          "dice_right_sector_vs_rhv": 0.8333501109473501,
+          "dice_segment_iv_vs_lhv": 0.3752690174654416,
+          "segments_in_reference_range": 1,
+          "left_liver_pct": 42.48365637319316,
+          "frame_confidence": 0.7032877578336711,
+          "mode_agreement": 0.7445285808147175
+        },
+        "passed": 6,
+        "total": 12
+      },
+      "notes": [
+        "liver mask: kept the largest of 2 components, dropped 469 stray voxels (0.04%)",
+        "pedicle skeletons: left=54, right_ant=39",
+        "portal bifurcation: left-right pedicle gap 10.5 mm",
+        "  snapped to VenaPorta centreline (22.5 mm away)",
+        "left pedicle: dropped 22/54 nodes lying >15 mm right of the bifurcation (main-trunk overlap)",
+        "transverse plane: fitted normal tilted 53 deg from vertical (> 50) -> pure axial fallback",
+        "IVC axis: 139/161 per-slice centroids inside the liver's S-range",
+        "MHV plane: 5167/5167 voxels within 70 mm of the IVC, planarity 0.95, 13 deg from expected",
+        "RHV plane: 2188/2236 voxels within 70 mm of the IVC, planarity 0.99, 50 deg from expected",
+        "LHV plane: 7359/7359 voxels within 70 mm of the IVC, planarity 0.90, 50 deg from expected",
+        "umbilical plane: trunk walk 15 nodes (16 mm), turn at node 12, sagittal through the umbilical point, 0 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): graph cut splits 16/16 nodes, 14 mm apart in R",
+        "  ! left lateral territory has too few nodes to split II/III",
+        "left pedicle seeds: IV=16 II=0 III=16",
+        "  right_ant (VIII/V): relaxed graph cut splits 12/27 nodes, 5 mm apart in S",
+        "right_ant seeds: VIII=12 V=27",
+        "Voronoi: 1,217,600 liver voxels from 71 seeds",
+        "segment I (heuristic): 22342 voxels from 22342 candidates, 1 components"
+      ],
+      "seconds": 19.252957344055176
+    },
+    {
+      "case": "RMV2025_0015_CT_UTV_VEP_K",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis1+ S=axis2+ (confidence 0.68, margin 0.04)",
+      "frame_confidence": 0.6803467313686463,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 3.723,
+        "2": 167.72,
+        "3": 51.502,
+        "4": 301.01,
+        "5": 289.073,
+        "6": 186.43800000000002,
+        "7": 52.363,
+        "8": 624.641
+      },
+      "volume_pct": {
+        "1": 0.2220737621311446,
+        "2": 10.004354387492768,
+        "3": 3.0720502007193686,
+        "4": 17.954988756136405,
+        "5": 17.24295692735331,
+        "6": 11.120867059953357,
+        "7": 3.1234081134765312,
+        "8": 37.25930079273712
+      },
+      "volume_pct_other_mode": {
+        "1": 0.2408035932644187,
+        "2": 12.189541119137235,
+        "3": 2.5767237111311267,
+        "4": 16.487202276211328,
+        "5": 15.893037155451633,
+        "6": 13.24276605009335,
+        "7": 3.285116942146295,
+        "8": 36.08480915256462
+      },
+      "mode_agreement": 0.8684605152493036,
+      "mode_dice_per_segment": {
+        "1": 0.0,
+        "2": 0.8147626547407236,
+        "3": 0.8774868004223865,
+        "4": 0.8682000578442121,
+        "5": 0.8844225628470879,
+        "6": 0.7450036601876856,
+        "7": 0.6956821206846803,
+        "8": 0.9385129376248381
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            true,
+            "worst is VIII at 98%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            true,
+            "II>III, VIII>V, VII>VI all hold"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +45 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +57 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            false,
+            "no MHV plane for this case"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.924 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.818 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            false,
+            "5/8 in range; outliers I=0.2%, VII=3.1%, VIII=37.3%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            true,
+            "II+III+IV = 31.0%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.68, margin 0.04"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.9768330929285782,
+          "anterior_posterior_gap_mm": 44.728589735061966,
+          "left_right_gap_mm": 57.22223307107147,
+          "dice_right_sector_vs_rhv": 0.9235656828069736,
+          "dice_segment_iv_vs_lhv": 0.8180058337640042,
+          "segments_in_reference_range": 5,
+          "left_liver_pct": 31.03139334434854,
+          "frame_confidence": 0.6803467313686463,
+          "mode_agreement": 0.8684605152493036
+        },
+        "passed": 10,
+        "total": 12
+      },
+      "notes": [
+        "liver mask: kept the largest of 3 components, dropped 150 stray voxels (0.01%)",
+        "pedicle skeletons: left=102, right=80, right_ant=123, right_post=54",
+        "portal bifurcation: left-right pedicle gap 3.7 mm",
+        "  snapped to VenaPorta centreline (14.2 mm away)",
+        "transverse plane: 297 proximal points, tilt 38 deg from horizontal, planarity 0.78",
+        "IVC axis: 148/241 per-slice centroids inside the liver's S-range",
+        "! MHV plane: normal 63 deg from the expected direction (>55) -- implausible scissura, skipped",
+        "RHV plane: 3863/4042 voxels within 70 mm of the IVC, planarity 0.98, 19 deg from expected",
+        "LHV plane: 1968/2087 voxels within 70 mm of the IVC, planarity 0.95, 6 deg from expected",
+        "umbilical plane: trunk walk 27 nodes (26 mm), turn at node 23, tilted along the umbilical portion (27 nodes, |A| 0.88), 19 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): relaxed graph cut splits 36/66 nodes, 6 mm apart in R",
+        "  ! left lateral (II/III): no graph cut and the transverse split is degenerate -> median S (26/40)",
+        "left pedicle seeds: IV=36 II=26 III=40",
+        "  right_ant (VIII/V): relaxed graph cut splits 63/60 nodes, 5 mm apart in S",
+        "right_ant seeds: VIII=63 V=60",
+        "  ! right_post (VII/VI): no graph cut and the transverse split is degenerate -> median S (22/32)",
+        "right_post seeds: VII=22 VI=32",
+        "right trunk seeds split by nearest labelled sub-sector node: V=30 VI=0 VII=18 VIII=32",
+        "Voronoi: 1,676,470 liver voxels from 336 seeds",
+        "segment I (heuristic): 3723 voxels from 8226 candidates, 9 components"
+      ],
+      "seconds": 48.80965304374695
+    },
+    {
+      "case": "RMV2025_0016_CT_UTV_ARP_C",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis1+ S=axis2+ (confidence 0.70, margin 0.20)",
+      "frame_confidence": 0.6953352704289298,
+      "frame_warnings": [
+        "R: 'classLiver - classIVC' points the wrong way (alignment -0.06) -- outvoted"
+      ],
+      "planes": [
+        "mhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 2.766,
+        "2": 46.537,
+        "3": 1.198,
+        "4": 1.6560000000000001,
+        "5": 15.997,
+        "6": 21.854,
+        "7": 12.848,
+        "8": 17.065
+      },
+      "volume_pct": {
+        "1": 2.30651845798484,
+        "2": 38.80638086740437,
+        "3": 0.9989910024099198,
+        "4": 1.3809090984898393,
+        "5": 13.33961524670408,
+        "6": 18.223663912075448,
+        "7": 10.713719865578174,
+        "8": 14.230201549353325
+      },
+      "volume_pct_other_mode": {
+        "1": 2.4207603338864754,
+        "2": 39.75367116685151,
+        "3": 4.6764119712143835,
+        "4": 3.6048732081953956,
+        "5": 18.538871423687258,
+        "6": 4.854028902360721,
+        "7": 7.976084255468183,
+        "8": 18.17529873833607
+      },
+      "mode_agreement": 0.7186564488288123,
+      "mode_dice_per_segment": {
+        "1": 0.8678779326159817,
+        "2": 0.9540600785479249,
+        "3": 0.2779900088157508,
+        "4": 0.32078942967051344,
+        "5": 0.349839127364043,
+        "6": 0.3778139114724481,
+        "7": 0.793646544416187,
+        "8": 0.8268958596021718
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            true,
+            "worst is IV at 86%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            true,
+            "II>III, VIII>V, VII>VI all hold"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +44 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +107 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.891 between the portal-derived left liver and the MHV (Cantlie) half-space"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.744 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            false,
+            "no LHV plane for this case"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            false,
+            "4/8 in range; outliers II=38.8%, III=1.0%, IV=1.4%, VI=18.2%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            true,
+            "II+III+IV = 41.2%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.70, margin 0.20"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.8586956521739131,
+          "anterior_posterior_gap_mm": 43.537161609674854,
+          "left_right_gap_mm": 106.5977316013513,
+          "dice_cantlie_vs_mhv": 0.8909601470816907,
+          "dice_right_sector_vs_rhv": 0.7440466434074039,
+          "segments_in_reference_range": 4,
+          "left_liver_pct": 41.18628096830413,
+          "frame_confidence": 0.6953352704289298,
+          "mode_agreement": 0.7186564488288123
+        },
+        "passed": 10,
+        "total": 12
+      },
+      "notes": [
+        "liver mask: kept the largest of 10 components, dropped 2,802 stray voxels (2.28%)",
+        "pedicle skeletons: left=58, right=82, right_ant=64, right_post=81",
+        "portal bifurcation: left-right pedicle gap 4.6 mm",
+        "  snapped to VenaPorta centreline (7.0 mm away)",
+        "transverse plane: fitted normal tilted 56 deg from vertical (> 50) -> pure axial fallback",
+        "IVC axis: 145/192 per-slice centroids inside the liver's S-range",
+        "MHV plane: 984/984 voxels within 70 mm of the IVC, planarity 0.86, 19 deg from expected",
+        "RHV plane: 3376/3376 voxels within 70 mm of the IVC, planarity 0.94, 31 deg from expected",
+        "! LHV plane: normal 79 deg from the expected direction (>55) -- implausible scissura, skipped",
+        "umbilical plane: trunk walk too short -> sagittal through the left pedicle centroid",
+        "  left medial/lateral (IV vs II+III): relaxed graph cut splits 29/29 nodes, 7 mm apart in R",
+        "  ! left lateral (II/III): no graph cut and the transverse split is degenerate -> median S (10/19)",
+        "left pedicle seeds: IV=29 II=10 III=19",
+        "  right_ant (VIII/V): relaxed graph cut splits 34/30 nodes, 7 mm apart in S",
+        "right_ant seeds: VIII=34 V=30",
+        "  ! right_post (VII/VI): no graph cut and the transverse split is degenerate -> median S (19/62)",
+        "right_post seeds: VII=19 VI=62",
+        "right trunk seeds split by nearest labelled sub-sector node: V=61 VI=21 VII=0 VIII=0",
+        "Voronoi: 119,921 liver voxels from 218 seeds",
+        "segment I (heuristic): 2766 voxels from 2854 candidates, 14 components"
+      ],
+      "seconds": 26.946919441223145
+    },
+    {
+      "case": "RMV2025_0018_CT_UTV_VEP_E",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis1+ S=axis2+ (confidence 0.76, margin 0.09)",
+      "frame_confidence": 0.7599024559337063,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "mhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 6.057,
+        "2": 15.883000000000001,
+        "3": 2.886,
+        "4": 26.01,
+        "5": 11.037,
+        "6": 0.0,
+        "7": 0.0,
+        "8": 57.693
+      },
+      "volume_pct": {
+        "1": 5.065821387350919,
+        "2": 13.283876687352594,
+        "3": 2.413729655587709,
+        "4": 21.753675794122074,
+        "5": 9.230885034207049,
+        "6": 0.0,
+        "7": 0.0,
+        "8": 48.25201144137966
+      },
+      "volume_pct_other_mode": {
+        "1": 4.135791111185454,
+        "2": 18.251844169747255,
+        "3": 2.7549637856915843,
+        "4": 17.601993877858252,
+        "5": 8.864560159242595,
+        "6": 0.0,
+        "7": 0.0,
+        "8": 48.390846896274866
+      },
+      "mode_agreement": 0.8933894250873994,
+      "mode_dice_per_segment": {
+        "1": 0.889838211234321,
+        "2": 0.8272953906540074,
+        "3": 0.4103559870550162,
+        "4": 0.809971098265896,
+        "5": 0.9786466999445369,
+        "6": 0.0,
+        "7": 0.0,
+        "8": 0.9591352810855719
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            false,
+            "missing VI, VII"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            false,
+            "worst is VI at 0%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            false,
+            "II above III (-6 mm); VII above VI (missing)"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            false,
+            "V+VIII are +0 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +55 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.909 between the portal-derived left liver and the MHV (Cantlie) half-space"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.728 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.865 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            false,
+            "3/8 in range; outliers I=5.1%, II=13.3%, VI=0.0%, VII=0.0%, VIII=48.3%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            true,
+            "II+III+IV = 37.5%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.76, margin 0.09"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.0,
+          "anterior_posterior_gap_mm": 0.0,
+          "left_right_gap_mm": 55.36537063099943,
+          "dice_cantlie_vs_mhv": 0.9089176870527352,
+          "dice_right_sector_vs_rhv": 0.728293752486331,
+          "dice_segment_iv_vs_lhv": 0.8654666981491909,
+          "segments_in_reference_range": 3,
+          "left_liver_pct": 37.45128213706238,
+          "frame_confidence": 0.7599024559337063,
+          "mode_agreement": 0.8933894250873994
+        },
+        "passed": 7,
+        "total": 12
+      },
+      "notes": [
+        "liver mask: kept the largest of 2 components, dropped 18 stray voxels (0.02%)",
+        "pedicle skeletons: left=136, right=58, right_ant=53",
+        "portal bifurcation: left-right pedicle gap 5.2 mm",
+        "  snapped to VenaPorta centreline (12.4 mm away)",
+        "left pedicle: dropped 34/136 nodes lying >15 mm right of the bifurcation (main-trunk overlap)",
+        "transverse plane: 323 proximal points, tilt 40 deg from horizontal, planarity 0.91",
+        "IVC axis: 128/222 per-slice centroids inside the liver's S-range",
+        "MHV plane: 3644/4451 voxels within 70 mm of the IVC, planarity 0.98, 55 deg from expected",
+        "RHV plane: 3399/3629 voxels within 70 mm of the IVC, planarity 0.98, 18 deg from expected",
+        "LHV plane: 2823/2823 voxels within 70 mm of the IVC, planarity 0.95, 4 deg from expected",
+        "umbilical plane: trunk walk too short -> sagittal through the left pedicle centroid",
+        "  left medial/lateral (IV vs II+III): graph cut splits 57/45 nodes, 11 mm apart in R",
+        "  left lateral (II/III): relaxed graph cut splits 22/23 nodes, 7 mm apart in S",
+        "left pedicle seeds: IV=57 II=22 III=23",
+        "  ! right_ant (VIII/V): no graph cut and the transverse split is degenerate -> median S (21/32)",
+        "right_ant seeds: VIII=21 V=32",
+        "right trunk seeds split by nearest labelled sub-sector node: V=0 VI=0 VII=0 VIII=58",
+        "Voronoi: 119,566 liver voxels from 194 seeds",
+        "segment I (heuristic): 6057 voxels from 6058 candidates, 2 components"
+      ],
+      "seconds": 10.565091371536255
+    },
+    {
+      "case": "RMV2026_0020_CT_UTV_VEP_R",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.68, margin 0.14)",
+      "frame_confidence": 0.6780765132763696,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "mhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 8.237,
+        "2": 406.849,
+        "3": 284.88800000000003,
+        "4": 163.856,
+        "5": 162.347,
+        "6": 283.63800000000003,
+        "7": 126.259,
+        "8": 279.659
+      },
+      "volume_pct": {
+        "1": 0.4800863537625027,
+        "2": 23.712838769202435,
+        "3": 16.604448361137777,
+        "4": 9.550203907018165,
+        "5": 9.462253159436813,
+        "6": 16.53159320243884,
+        "7": 7.358895585735077,
+        "8": 16.29968066126839
+      },
+      "volume_pct_other_mode": {
+        "1": 0.46026975059639236,
+        "2": 19.386233172643994,
+        "3": 14.579366369942177,
+        "4": 15.043366304663953,
+        "5": 15.774540677366469,
+        "6": 12.423669650231126,
+        "7": 5.839661532417923,
+        "8": 16.492892542137966
+      },
+      "mode_agreement": 0.7814566718714392,
+      "mode_dice_per_segment": {
+        "1": 0.9789264906408827,
+        "2": 0.8122277592583828,
+        "3": 0.9333477873244728,
+        "4": 0.6053464783391791,
+        "5": 0.7365656957570047,
+        "6": 0.7789732183294921,
+        "7": 0.623010615936269,
+        "8": 0.823503065053063
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            false,
+            "worst is VII at 64%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            true,
+            "II>III, VIII>V, VII>VI all hold"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +41 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +67 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.938 between the portal-derived left liver and the MHV (Cantlie) half-space"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.812 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            false,
+            "Dice 0.652 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            false,
+            "4/8 in range; outliers I=0.5%, II=23.7%, III=16.6%, VI=16.5%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            false,
+            "II+III+IV = 49.9%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.68, margin 0.14"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.636762527819799,
+          "anterior_posterior_gap_mm": 41.31031411886446,
+          "left_right_gap_mm": 66.97604941681709,
+          "dice_cantlie_vs_mhv": 0.9380404498868237,
+          "dice_right_sector_vs_rhv": 0.8116528333280657,
+          "dice_segment_iv_vs_lhv": 0.6518738947690875,
+          "segments_in_reference_range": 4,
+          "left_liver_pct": 49.86749103735838,
+          "frame_confidence": 0.6780765132763696,
+          "mode_agreement": 0.7814566718714392
+        },
+        "passed": 8,
+        "total": 12
+      },
+      "notes": [
+        "pedicle skeletons: left=273, right=128, right_ant=257, right_post=186",
+        "portal bifurcation: left-right pedicle gap 23.5 mm",
+        "left pedicle: dropped 33/273 nodes lying >15 mm right of the bifurcation (main-trunk overlap)",
+        "transverse plane: 196 proximal points, tilt 24 deg from horizontal, planarity 0.54",
+        "IVC axis: 114/237 per-slice centroids inside the liver's S-range",
+        "MHV plane: 4445/7038 voxels within 70 mm of the IVC, planarity 0.99, 49 deg from expected",
+        "RHV plane: 9581/16801 voxels within 70 mm of the IVC, planarity 0.95, 14 deg from expected",
+        "LHV plane: 2701/5774 voxels within 70 mm of the IVC, planarity 1.00, 15 deg from expected",
+        "umbilical plane: trunk walk 44 nodes (39 mm), turn at node 23, sagittal through the umbilical point, 0 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): graph cut splits 74/166 nodes, 16 mm apart in R",
+        "  ! left lateral (II/III): no graph cut and the transverse split is degenerate -> median S (83/83)",
+        "left pedicle seeds: IV=74 II=83 III=83",
+        "  right_ant (VIII/V): graph cut splits 176/81 nodes, 26 mm apart in S",
+        "right_ant seeds: VIII=176 V=81",
+        "  ! right_post (VII/VI): no graph cut and the transverse split is degenerate -> median S (83/103)",
+        "right_post seeds: VII=83 VI=103",
+        "right trunk seeds split by nearest labelled sub-sector node: V=0 VI=128 VII=0 VIII=0",
+        "Voronoi: 1,715,733 liver voxels from 809 seeds",
+        "segment I (heuristic): 8237 voxels from 8237 candidates, 1 components"
+      ],
+      "seconds": 23.153664588928223
+    },
+    {
+      "case": "RMV2026_0021_CT_UTV_VEP_P",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.76, margin 0.31)",
+      "frame_confidence": 0.7642444948196131,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "mhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 30.013,
+        "2": 91.94500000000001,
+        "3": 124.18,
+        "4": 515.456,
+        "5": 83.01,
+        "6": 482.058,
+        "7": 305.954,
+        "8": 292.81
+      },
+      "volume_pct": {
+        "1": 1.558771928913394,
+        "2": 4.775306867155632,
+        "3": 6.449481828956293,
+        "4": 26.771010675040227,
+        "5": 4.311253717359172,
+        "6": 25.036433495756267,
+        "7": 15.890197805576534,
+        "8": 15.20754368124249
+      },
+      "volume_pct_other_mode": {
+        "1": 0.39991150010439247,
+        "2": 8.315614310807062,
+        "3": 27.34298799330642,
+        "4": 7.239021390590965,
+        "5": 10.858168529977261,
+        "6": 6.7476496110471125,
+        "7": 17.280954967887627,
+        "8": 21.81569169627916
+      },
+      "mode_agreement": 0.5400389316442179,
+      "mode_dice_per_segment": {
+        "1": 0.2395460451303264,
+        "2": 0.7295204240327546,
+        "3": 0.3816712236551505,
+        "4": 0.2733897544125417,
+        "5": 0.5668250729262246,
+        "6": 0.39648746117105327,
+        "7": 0.9559689737993318,
+        "8": 0.6180415371990096
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            true,
+            "worst is V at 100%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            true,
+            "II>III, VIII>V, VII>VI all hold"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +45 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +79 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.920 between the portal-derived left liver and the MHV (Cantlie) half-space"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            false,
+            "Dice 0.644 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            false,
+            "Dice 0.682 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            true,
+            "6/8 in range; outliers IV=26.8%, VI=25.0%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            true,
+            "II+III+IV = 38.0%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.76, margin 0.31"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.9999638597759306,
+          "anterior_posterior_gap_mm": 45.16518085082309,
+          "left_right_gap_mm": 78.57303363777669,
+          "dice_cantlie_vs_mhv": 0.9204265949639914,
+          "dice_right_sector_vs_rhv": 0.6438232892206869,
+          "dice_segment_iv_vs_lhv": 0.6820216687030718,
+          "segments_in_reference_range": 6,
+          "left_liver_pct": 37.99579937115215,
+          "frame_confidence": 0.7642444948196131,
+          "mode_agreement": 0.5400389316442179
+        },
+        "passed": 10,
+        "total": 12
+      },
+      "notes": [
+        "pedicle skeletons: left=478, right_ant=162, right_post=399",
+        "portal bifurcation: left-right pedicle gap 39.2 mm",
+        "  snapped to VenaPorta centreline (24.3 mm away)",
+        "transverse plane: 318 proximal points, tilt 29 deg from horizontal, planarity 0.47",
+        "IVC axis: 136/191 per-slice centroids inside the liver's S-range",
+        "MHV plane: 1785/1785 voxels within 70 mm of the IVC, planarity 0.98, 46 deg from expected",
+        "RHV plane: 14058/27600 voxels within 70 mm of the IVC, planarity 0.92, 18 deg from expected",
+        "LHV plane: 12644/20466 voxels within 70 mm of the IVC, planarity 0.87, 4 deg from expected",
+        "umbilical plane: trunk walk 13 nodes (13 mm), turn at node 4, tilted along the umbilical portion (13 nodes, |A| 0.77), 14 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): graph cut splits 302/176 nodes, 26 mm apart in R",
+        "  left lateral (II/III): relaxed graph cut splits 74/102 nodes, 8 mm apart in S",
+        "left pedicle seeds: IV=302 II=74 III=102",
+        "  right_ant (VIII/V): relaxed graph cut splits 112/50 nodes, 6 mm apart in S",
+        "right_ant seeds: VIII=112 V=50",
+        "  right_post (VII/VI): graph cut splits 140/259 nodes, 33 mm apart in S",
+        "right_post seeds: VII=140 VI=259",
+        "Voronoi: 1,925,426 liver voxels from 1,026 seeds",
+        "segment I (heuristic): 30013 voxels from 30016 candidates, 4 components"
+      ],
+      "seconds": 46.42466592788696
+    },
+    {
+      "case": "RMV2026_0022_CT_UTV_VEP_N",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.69, margin 0.13)",
+      "frame_confidence": 0.6946460995455983,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 14.996,
+        "2": 156.655,
+        "3": 115.816,
+        "4": 781.586,
+        "5": 94.375,
+        "6": 613.885,
+        "7": 208.18200000000002,
+        "8": 202.149
+      },
+      "volume_pct": {
+        "1": 0.6854863039873033,
+        "2": 7.160900036751865,
+        "3": 5.294097211429282,
+        "4": 35.727293837571374,
+        "5": 4.314001729714707,
+        "6": 28.061467039426887,
+        "7": 9.516264986442035,
+        "8": 9.240488854676537
+      },
+      "volume_pct_other_mode": {
+        "1": 0.8462528638114793,
+        "2": 23.386254801969606,
+        "3": 4.308059263755894,
+        "4": 20.487977020027024,
+        "5": 13.097286395775546,
+        "6": 15.661871858492516,
+        "7": 8.195986184223758,
+        "8": 14.016311611944172
+      },
+      "mode_agreement": 0.686661998021616,
+      "mode_dice_per_segment": {
+        "1": 0.8950431227431437,
+        "2": 0.46740878965317545,
+        "3": 0.8619972293762288,
+        "4": 0.6871433334146481,
+        "5": 0.49503146519925334,
+        "6": 0.7162991329948114,
+        "7": 0.9248040549084987,
+        "8": 0.7937442017705237
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            false,
+            "worst is VII at 80%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            true,
+            "II>III, VIII>V, VII>VI all hold"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +56 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +47 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            false,
+            "no MHV plane for this case"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            false,
+            "Dice 0.664 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.797 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            true,
+            "6/8 in range; outliers IV=35.7%, VI=28.1%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            false,
+            "II+III+IV = 48.2%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.69, margin 0.13"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.8049783362634618,
+          "anterior_posterior_gap_mm": 55.83914362737799,
+          "left_right_gap_mm": 46.8759506332152,
+          "dice_right_sector_vs_rhv": 0.6637400776990338,
+          "dice_segment_iv_vs_lhv": 0.797047202856109,
+          "segments_in_reference_range": 6,
+          "left_liver_pct": 48.182291085752524,
+          "frame_confidence": 0.6946460995455983,
+          "mode_agreement": 0.686661998021616
+        },
+        "passed": 8,
+        "total": 12
+      },
+      "notes": [
+        "pedicle skeletons: left=646, right=43, right_ant=93, right_post=336",
+        "portal bifurcation: left-right pedicle gap 12.7 mm",
+        "  snapped to VenaPorta centreline (5.9 mm away)",
+        "left pedicle: dropped 216/646 nodes lying >15 mm right of the bifurcation (main-trunk overlap)",
+        "transverse plane: 289 proximal points, tilt 23 deg from horizontal, planarity 0.68",
+        "IVC axis: 157/207 per-slice centroids inside the liver's S-range",
+        "! MHV plane: normal 60 deg from the expected direction (>55) -- implausible scissura, skipped",
+        "RHV plane: 24645/34739 voxels within 70 mm of the IVC, planarity 0.86, 13 deg from expected",
+        "LHV plane: 12064/25308 voxels within 70 mm of the IVC, planarity 0.90, 17 deg from expected",
+        "umbilical plane: trunk walk 41 nodes (35 mm), turn at node 0, tilted along the umbilical portion (25 nodes, |A| 1.00), 5 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): graph cut splits 260/170 nodes, 24 mm apart in R",
+        "  left lateral (II/III): graph cut splits 115/55 nodes, 19 mm apart in S",
+        "left pedicle seeds: IV=260 II=115 III=55",
+        "  right_ant (VIII/V): graph cut splits 47/46 nodes, 23 mm apart in S",
+        "right_ant seeds: VIII=47 V=46",
+        "  right_post (VII/VI): graph cut splits 85/251 nodes, 12 mm apart in S",
+        "right_post seeds: VII=85 VI=251",
+        "right trunk seeds split by nearest labelled sub-sector node: V=0 VI=0 VII=30 VIII=13",
+        "Voronoi: 2,187,644 liver voxels from 893 seeds",
+        "segment I (heuristic): 14996 voxels from 14999 candidates, 3 components"
+      ],
+      "seconds": 36.76970148086548
+    },
+    {
+      "case": "RMV2026_0023_CT_UTV_VEP_L",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.79, margin 0.28)",
+      "frame_confidence": 0.7900006045120976,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "mhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 7.792,
+        "2": 156.904,
+        "3": 324.351,
+        "4": 425.254,
+        "5": 134.054,
+        "6": 296.14,
+        "7": 333.156,
+        "8": 680.232
+      },
+      "volume_pct": {
+        "1": 0.3304659306674674,
+        "2": 6.654443837968212,
+        "3": 13.756026062361874,
+        "4": 18.03541566735924,
+        "5": 5.68535419272288,
+        "6": 12.559571446081083,
+        "7": 14.129454260453127,
+        "8": 28.849268602386125
+      },
+      "volume_pct_other_mode": {
+        "1": 1.128681957501708,
+        "2": 6.5266597197570855,
+        "3": 17.7663607566618,
+        "4": 4.612612245815419,
+        "5": 5.687474738992562,
+        "6": 4.9362924284198995,
+        "7": 14.782836977067989,
+        "8": 44.559081175783525
+      },
+      "mode_agreement": 0.714158420922497,
+      "mode_dice_per_segment": {
+        "1": 0.4528411568086034,
+        "2": 0.9897263469489535,
+        "3": 0.6530734156642148,
+        "4": 0.18350829753527062,
+        "5": 0.9992989207855071,
+        "6": 0.5579591401394316,
+        "7": 0.9573518669009766,
+        "8": 0.757088722923502
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            true,
+            "worst is VII at 100%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            true,
+            "II>III, VIII>V, VII>VI all hold"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +58 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +75 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.850 between the portal-derived left liver and the MHV (Cantlie) half-space"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.884 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.711 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            false,
+            "5/8 in range; outliers I=0.3%, III=13.8%, VIII=28.8%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            true,
+            "II+III+IV = 38.4%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.79, margin 0.28"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.9975506969707885,
+          "anterior_posterior_gap_mm": 57.90945756318673,
+          "left_right_gap_mm": 75.03809111953746,
+          "dice_cantlie_vs_mhv": 0.8497456924976956,
+          "dice_right_sector_vs_rhv": 0.8841510176430212,
+          "dice_segment_iv_vs_lhv": 0.7110426688470098,
+          "segments_in_reference_range": 5,
+          "left_liver_pct": 38.445885567689324,
+          "frame_confidence": 0.7900006045120976,
+          "mode_agreement": 0.714158420922497
+        },
+        "passed": 11,
+        "total": 12
+      },
+      "notes": [
+        "pedicle skeletons: left=256, right=36, right_ant=389, right_post=356",
+        "portal bifurcation: left-right pedicle gap 29.8 mm",
+        "transverse plane: 349 proximal points, tilt 42 deg from horizontal, planarity 0.69",
+        "IVC axis: 165/251 per-slice centroids inside the liver's S-range",
+        "MHV plane: 19147/37434 voxels within 70 mm of the IVC, planarity 0.84, 25 deg from expected",
+        "RHV plane: 22144/40359 voxels within 70 mm of the IVC, planarity 0.89, 10 deg from expected",
+        "LHV plane: 3441/4117 voxels within 70 mm of the IVC, planarity 0.95, 38 deg from expected",
+        "umbilical plane: trunk walk 57 nodes (39 mm), turn at node 43, tilted along the umbilical portion (42 nodes, |A| 0.80), 31 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): graph cut splits 134/122 nodes, 40 mm apart in R",
+        "  left lateral (II/III): graph cut splits 30/92 nodes, 9 mm apart in S",
+        "left pedicle seeds: IV=134 II=30 III=92",
+        "  right_ant (VIII/V): graph cut splits 296/93 nodes, 34 mm apart in S",
+        "right_ant seeds: VIII=296 V=93",
+        "  right_post (VII/VI): graph cut splits 196/160 nodes, 21 mm apart in S",
+        "right_post seeds: VII=196 VI=160",
+        "right trunk seeds split by nearest labelled sub-sector node: V=0 VI=0 VII=0 VIII=36",
+        "Voronoi: 2,357,883 liver voxels from 1,037 seeds",
+        "segment I (heuristic): 7792 voxels from 13312 candidates, 11 components"
+      ],
+      "seconds": 52.2001531124115
+    },
+    {
+      "case": "RMV2026_0026_CT_UTV_VEP_F",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.76, margin 0.15)",
+      "frame_confidence": 0.7550642946870066,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 20.64,
+        "2": 221.68200000000002,
+        "3": 119.486,
+        "4": 514.0310000000001,
+        "5": 62.616,
+        "6": 654.375,
+        "7": 103.632,
+        "8": 546.712
+      },
+      "volume_pct": {
+        "1": 0.9201247874663312,
+        "2": 9.882514686778645,
+        "3": 5.32664875751948,
+        "4": 22.915342278396597,
+        "5": 2.791401826162393,
+        "6": 29.171834195653123,
+        "7": 4.619882363115836,
+        "8": 24.372251104907598
+      },
+      "volume_pct_other_mode": {
+        "1": 0.7878568492680462,
+        "2": 6.959602777136326,
+        "3": 17.86941182449511,
+        "4": 13.295535700752595,
+        "5": 6.985592736007105,
+        "6": 27.911477219332966,
+        "7": 4.534958054970324,
+        "8": 21.65556483803753
+      },
+      "mode_agreement": 0.7288988727579759,
+      "mode_dice_per_segment": {
+        "1": 0.9225589225589226,
+        "2": 0.8259122599907888,
+        "3": 0.4133431220307191,
+        "4": 0.5434773776796717,
+        "5": 0.5681325946697672,
+        "6": 0.8631198661749753,
+        "7": 0.7133166795708978,
+        "8": 0.8619039132809806
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            true,
+            "worst is VII at 99%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            true,
+            "II>III, VIII>V, VII>VI all hold"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +55 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +55 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            false,
+            "no MHV plane for this case"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.813 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            false,
+            "Dice 0.694 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            false,
+            "5/8 in range; outliers V=2.8%, VI=29.2%, VII=4.6%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            true,
+            "II+III+IV = 38.1%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.76, margin 0.15"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.9936506098502393,
+          "anterior_posterior_gap_mm": 54.62261815835523,
+          "left_right_gap_mm": 54.72399329142438,
+          "dice_right_sector_vs_rhv": 0.8127619945981568,
+          "dice_segment_iv_vs_lhv": 0.6935100031736571,
+          "segments_in_reference_range": 5,
+          "left_liver_pct": 38.12450572269472,
+          "frame_confidence": 0.7550642946870066,
+          "mode_agreement": 0.7288988727579759
+        },
+        "passed": 9,
+        "total": 12
+      },
+      "notes": [
+        "liver mask: kept the largest of 6 components, dropped 3,534 stray voxels (0.16%)",
+        "pedicle skeletons: left=48, right_ant=39, right_post=64",
+        "portal bifurcation: left-right pedicle gap 15.2 mm",
+        "  snapped to VenaPorta centreline (23.7 mm away)",
+        "transverse plane: 152 proximal points, tilt 41 deg from horizontal, planarity 0.91",
+        "IVC axis: 137/242 per-slice centroids inside the liver's S-range",
+        "! MHV plane: normal 59 deg from the expected direction (>55) -- implausible scissura, skipped",
+        "RHV plane: 6074/6074 voxels within 70 mm of the IVC, planarity 0.94, 10 deg from expected",
+        "LHV plane: 709/709 voxels within 70 mm of the IVC, planarity 0.98, 12 deg from expected",
+        "umbilical plane: trunk walk 45 nodes (41 mm), turn at node 6, tilted along the umbilical portion (29 nodes, |A| 0.92), 13 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): relaxed graph cut splits 24/24 nodes, 6 mm apart in R",
+        "  ! left lateral (II/III): no graph cut and the transverse split is degenerate -> median S (12/12)",
+        "left pedicle seeds: IV=24 II=12 III=12",
+        "  right_ant (VIII/V): relaxed graph cut splits 19/20 nodes, 6 mm apart in S",
+        "right_ant seeds: VIII=19 V=20",
+        "  ! right_post (VII/VI): no graph cut and the transverse split is degenerate -> median S (25/39)",
+        "right_post seeds: VII=25 VI=39",
+        "Voronoi: 2,243,174 liver voxels from 145 seeds",
+        "segment I (heuristic): 20640 voxels from 20644 candidates, 3 components"
+      ],
+      "seconds": 28.498247861862183
+    },
+    {
+      "case": "RMV2026_0027_CT_UTV_VEP_D",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.76, margin 0.32)",
+      "frame_confidence": 0.7557342220472858,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "mhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 2.926,
+        "2": 189.997,
+        "3": 112.372,
+        "4": 142.484,
+        "5": 464.14300000000003,
+        "6": 630.325,
+        "7": 247.417,
+        "8": 175.072
+      },
+      "volume_pct": {
+        "1": 0.14892586077722403,
+        "2": 9.670357747809375,
+        "3": 5.719445258803218,
+        "4": 7.25206847128571,
+        "5": 23.623682774683214,
+        "6": 32.08191838496368,
+        "7": 12.592887797648132,
+        "8": 8.910713704029448
+      },
+      "volume_pct_other_mode": {
+        "1": 1.1795986839962216,
+        "2": 13.765513534642823,
+        "3": 5.769935502785106,
+        "4": 4.706739226033421,
+        "5": 37.24357878106779,
+        "6": 12.106715609628978,
+        "7": 14.562058210365157,
+        "8": 10.665860451480505
+      },
+      "mode_agreement": 0.7212215788787908,
+      "mode_dice_per_segment": {
+        "1": 0.22419737951114857,
+        "2": 0.7063522227024257,
+        "3": 0.9875163908282241,
+        "4": 0.5413540234679242,
+        "5": 0.7045266209597778,
+        "6": 0.5409691426991787,
+        "7": 0.927112795512096,
+        "8": 0.8995236956227836
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            true,
+            "worst is III at 100%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            true,
+            "II>III, VIII>V, VII>VI all hold"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +46 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +66 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.771 between the portal-derived left liver and the MHV (Cantlie) half-space"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.744 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            false,
+            "Dice 0.544 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            false,
+            "4/8 in range; outliers I=0.1%, IV=7.3%, V=23.6%, VI=32.1%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            false,
+            "II+III+IV = 22.6%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.76, margin 0.32"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.999750827608301,
+          "anterior_posterior_gap_mm": 46.08808431165816,
+          "left_right_gap_mm": 66.26351785245271,
+          "dice_cantlie_vs_mhv": 0.7711569334253922,
+          "dice_right_sector_vs_rhv": 0.7436996771364796,
+          "dice_segment_iv_vs_lhv": 0.5443920368470622,
+          "segments_in_reference_range": 4,
+          "left_liver_pct": 22.641871477898302,
+          "frame_confidence": 0.7557342220472858,
+          "mode_agreement": 0.7212215788787908
+        },
+        "passed": 9,
+        "total": 12
+      },
+      "notes": [
+        "pedicle skeletons: left=1071, right_ant=1158, right_post=1003",
+        "portal bifurcation: left-right pedicle gap 9.1 mm",
+        "transverse plane: fitted normal tilted 63 deg from vertical (> 50) -> pure axial fallback",
+        "IVC axis: 162/192 per-slice centroids inside the liver's S-range",
+        "MHV plane: 9702/13473 voxels within 70 mm of the IVC, planarity 0.76, 15 deg from expected",
+        "RHV plane: 17565/22295 voxels within 70 mm of the IVC, planarity 0.81, 3 deg from expected",
+        "LHV plane: 1249/1894 voxels within 70 mm of the IVC, planarity 0.99, 44 deg from expected",
+        "umbilical plane: trunk walk 84 nodes (48 mm), turn at node 38, sagittal through the umbilical point, 0 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): graph cut splits 340/731 nodes, 43 mm apart in R",
+        "  left lateral (II/III): graph cut splits 487/244 nodes, 20 mm apart in S",
+        "left pedicle seeds: IV=340 II=487 III=244",
+        "  right_ant (VIII/V): graph cut splits 395/763 nodes, 26 mm apart in S",
+        "right_ant seeds: VIII=395 V=763",
+        "  right_post (VII/VI): graph cut splits 311/692 nodes, 36 mm apart in S",
+        "right_post seeds: VII=311 VI=692",
+        "Voronoi: 1,964,736 liver voxels from 3,195 seeds",
+        "segment I (heuristic): 2926 voxels from 4314 candidates, 5 components"
+      ],
+      "seconds": 19.657716035842896
+    },
+    {
+      "case": "RMV2026_0028_CT_UTV_VEP_B",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.76, margin 0.22)",
+      "frame_confidence": 0.7622099662696058,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "mhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 15.083,
+        "2": 147.656,
+        "3": 99.435,
+        "4": 111.013,
+        "5": 201.881,
+        "6": 293.056,
+        "7": 322.574,
+        "8": 243.136
+      },
+      "volume_pct": {
+        "1": 1.0519348822806545,
+        "2": 10.297984285489115,
+        "3": 6.934903203578656,
+        "4": 7.7423885889161514,
+        "5": 14.079802822362979,
+        "6": 20.43862818150497,
+        "7": 22.497304429940982,
+        "8": 16.957053605926486
+      },
+      "volume_pct_other_mode": {
+        "1": 0.9395090366109325,
+        "2": 7.127115133272052,
+        "3": 4.695871349124097,
+        "4": 6.791092971710812,
+        "5": 24.548308939528567,
+        "6": 13.444582845712961,
+        "7": 24.382041435758953,
+        "8": 18.07147828828163
+      },
+      "mode_agreement": 0.8060856417130574,
+      "mode_dice_per_segment": {
+        "1": 0.9435455627933039,
+        "2": 0.8077183236140518,
+        "3": 0.8070829785447873,
+        "4": 0.5564001420440913,
+        "5": 0.7288589416516359,
+        "6": 0.7625728394146912,
+        "7": 0.9544164291282589,
+        "8": 0.8294617631423332
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            true,
+            "worst is II at 100%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            true,
+            "II>III, VIII>V, VII>VI all hold"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +54 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +51 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.833 between the portal-derived left liver and the MHV (Cantlie) half-space"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.850 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            false,
+            "Dice 0.626 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            true,
+            "6/8 in range; outliers IV=7.7%, VI=20.4%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            false,
+            "II+III+IV = 25.0%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.76, margin 0.22"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.9998984125264128,
+          "anterior_posterior_gap_mm": 53.501691275157086,
+          "left_right_gap_mm": 51.49647445948314,
+          "dice_cantlie_vs_mhv": 0.8330209968525892,
+          "dice_right_sector_vs_rhv": 0.8503663442174205,
+          "dice_segment_iv_vs_lhv": 0.626231514936129,
+          "segments_in_reference_range": 6,
+          "left_liver_pct": 24.97527607798392,
+          "frame_confidence": 0.7622099662696058,
+          "mode_agreement": 0.8060856417130574
+        },
+        "passed": 10,
+        "total": 12
+      },
+      "notes": [
+        "liver mask: kept the largest of 3 components, dropped 854 stray voxels (0.06%)",
+        "pedicle skeletons: left=357, right_ant=349, right_post=418",
+        "portal bifurcation: left-right pedicle gap 16.2 mm",
+        "transverse plane: 406 proximal points, tilt 42 deg from horizontal, planarity 0.44",
+        "IVC axis: 152/216 per-slice centroids inside the liver's S-range",
+        "MHV plane: 7632/12546 voxels within 70 mm of the IVC, planarity 0.98, 43 deg from expected",
+        "RHV plane: 22819/38527 voxels within 70 mm of the IVC, planarity 0.93, 13 deg from expected",
+        "LHV plane: 3630/4440 voxels within 70 mm of the IVC, planarity 0.97, 7 deg from expected",
+        "umbilical plane: trunk walk too short -> sagittal through the left pedicle centroid",
+        "  left medial/lateral (IV vs II+III): graph cut splits 104/253 nodes, 36 mm apart in R",
+        "  left lateral (II/III): graph cut splits 125/128 nodes, 9 mm apart in S",
+        "left pedicle seeds: IV=104 II=125 III=128",
+        "  right_ant (VIII/V): graph cut splits 161/188 nodes, 42 mm apart in S",
+        "right_ant seeds: VIII=161 V=188",
+        "  right_post (VII/VI): graph cut splits 190/228 nodes, 50 mm apart in S",
+        "right_post seeds: VII=190 VI=228",
+        "Voronoi: 1,433,834 liver voxels from 1,111 seeds",
+        "segment I (heuristic): 15083 voxels from 15083 candidates, 1 components"
+      ],
+      "seconds": 35.23895215988159
+    },
+    {
+      "case": "RMV2026_0029_CT_UTV_VEP_9",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.73, margin 0.24)",
+      "frame_confidence": 0.7266692700099909,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "mhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 33.264,
+        "2": 143.536,
+        "3": 23.208000000000002,
+        "4": 467.956,
+        "5": 228.913,
+        "6": 296.342,
+        "7": 470.66700000000003,
+        "8": 256.67900000000003
+      },
+      "volume_pct": {
+        "1": 1.7319903257635123,
+        "2": 7.47363406081023,
+        "3": 1.2083944047715127,
+        "4": 24.365538266083156,
+        "5": 11.919044656129838,
+        "6": 15.429938585780745,
+        "7": 24.506694644544705,
+        "8": 13.3647650561163
+      },
+      "volume_pct_other_mode": {
+        "1": 1.4978404792339752,
+        "2": 14.045866711098036,
+        "3": 7.968592575622278,
+        "4": 14.241225889256548,
+        "5": 24.28243772015006,
+        "6": 1.7671883013592353,
+        "7": 21.668831828133907,
+        "8": 14.528016495145959
+      },
+      "mode_agreement": 0.6359206795916826,
+      "mode_dice_per_segment": {
+        "1": 0.8568941335783721,
+        "2": 0.6935368355851497,
+        "3": 0.26103829787234045,
+        "4": 0.6490961174319053,
+        "5": 0.5484320547468404,
+        "6": 0.2042012583186489,
+        "7": 0.8399616161365582,
+        "8": 0.712926475502101
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            true,
+            "worst is VIII at 90%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            true,
+            "II>III, VIII>V, VII>VI all hold"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +43 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +75 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.940 between the portal-derived left liver and the MHV (Cantlie) half-space"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            false,
+            "Dice 0.685 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.744 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            false,
+            "5/8 in range; outliers III=1.2%, VI=15.4%, VII=24.5%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            true,
+            "II+III+IV = 33.0%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.73, margin 0.24"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.8964465343873087,
+          "anterior_posterior_gap_mm": 43.01718332318654,
+          "left_right_gap_mm": 75.38193026050905,
+          "dice_cantlie_vs_mhv": 0.9402120846082845,
+          "dice_right_sector_vs_rhv": 0.6854276524533985,
+          "dice_segment_iv_vs_lhv": 0.7443255446468231,
+          "segments_in_reference_range": 5,
+          "left_liver_pct": 33.0475667316649,
+          "frame_confidence": 0.7266692700099909,
+          "mode_agreement": 0.6359206795916826
+        },
+        "passed": 10,
+        "total": 12
+      },
+      "notes": [
+        "pedicle skeletons: left=436, right=46, right_ant=317, right_post=418",
+        "portal bifurcation: left-right pedicle gap 8.3 mm",
+        "  snapped to VenaPorta centreline (9.4 mm away)",
+        "left pedicle: dropped 35/436 nodes lying >15 mm right of the bifurcation (main-trunk overlap)",
+        "transverse plane: 344 proximal points, tilt 30 deg from horizontal, planarity 0.69",
+        "IVC axis: 167/182 per-slice centroids inside the liver's S-range",
+        "MHV plane: 6211/6225 voxels within 70 mm of the IVC, planarity 0.94, 41 deg from expected",
+        "RHV plane: 12138/17544 voxels within 70 mm of the IVC, planarity 0.92, 8 deg from expected",
+        "LHV plane: 3680/4852 voxels within 70 mm of the IVC, planarity 0.99, 7 deg from expected",
+        "umbilical plane: trunk walk 62 nodes (59 mm), turn at node 56, tilted along the umbilical portion (25 nodes, |A| 0.71), 43 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): graph cut splits 279/122 nodes, 33 mm apart in R",
+        "  left lateral (II/III): graph cut splits 104/18 nodes, 9 mm apart in S",
+        "left pedicle seeds: IV=279 II=104 III=18",
+        "  right_ant (VIII/V): graph cut splits 117/200 nodes, 28 mm apart in S",
+        "right_ant seeds: VIII=117 V=200",
+        "  right_post (VII/VI): graph cut splits 259/159 nodes, 28 mm apart in S",
+        "right_post seeds: VII=259 VI=159",
+        "right trunk seeds split by nearest labelled sub-sector node: V=0 VI=0 VII=19 VIII=27",
+        "Voronoi: 1,920,565 liver voxels from 1,166 seeds",
+        "segment I (heuristic): 33264 voxels from 33274 candidates, 6 components"
+      ],
+      "seconds": 28.790759086608887
+    },
+    {
+      "case": "RMV2026_0030_CT_UTV_VEP_Q",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.63, margin 0.17)",
+      "frame_confidence": 0.6348561142112035,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 9.337,
+        "2": 165.018,
+        "3": 60.721000000000004,
+        "4": 380.942,
+        "5": 36.078,
+        "6": 415.234,
+        "7": 126.73100000000001,
+        "8": 151.292
+      },
+      "volume_pct": {
+        "1": 0.6940185958629445,
+        "2": 12.265777086013856,
+        "3": 4.513387936103015,
+        "4": 28.31539380370802,
+        "5": 2.6816753669854676,
+        "6": 30.86431590816685,
+        "7": 9.41990689432439,
+        "8": 11.24552440883545
+      },
+      "volume_pct_other_mode": {
+        "1": 0.6959511741528059,
+        "2": 18.597795522810742,
+        "3": 4.700922360153803,
+        "4": 21.793908364570488,
+        "5": 25.300348681721452,
+        "6": 7.645279714691981,
+        "7": 10.30473043134404,
+        "8": 10.961063750554686
+      },
+      "mode_agreement": 0.6220887752136428,
+      "mode_dice_per_segment": {
+        "1": 0.9986096256684492,
+        "2": 0.7883166676300021,
+        "3": 0.4825394264510144,
+        "4": 0.7745669712985447,
+        "5": 0.1900296713834515,
+        "6": 0.33894883128413983,
+        "7": 0.9474687789694234,
+        "8": 0.8277496426861964
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            true,
+            "worst is III at 100%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            true,
+            "II>III, VIII>V, VII>VI all hold"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +14 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +52 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            false,
+            "no MHV plane for this case"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            false,
+            "Dice 0.472 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.745 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            false,
+            "4/8 in range; outliers II=12.3%, IV=28.3%, V=2.7%, VI=30.9%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            false,
+            "II+III+IV = 45.1%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.63, margin 0.17"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.9978425915251725,
+          "anterior_posterior_gap_mm": 13.996617355184554,
+          "left_right_gap_mm": 52.453008250497035,
+          "dice_right_sector_vs_rhv": 0.47225916524242684,
+          "dice_segment_iv_vs_lhv": 0.74490062354649,
+          "segments_in_reference_range": 4,
+          "left_liver_pct": 45.09455882582489,
+          "frame_confidence": 0.6348561142112035,
+          "mode_agreement": 0.6220887752136428
+        },
+        "passed": 8,
+        "total": 12
+      },
+      "notes": [
+        "pedicle skeletons: left=352, right_ant=69, right_post=134",
+        "portal bifurcation: left-right pedicle gap 20.1 mm",
+        "  snapped to VenaPorta centreline (3.2 mm away)",
+        "left pedicle: dropped 99/352 nodes lying >15 mm right of the bifurcation (main-trunk overlap)",
+        "transverse plane: 326 proximal points, tilt 39 deg from horizontal, planarity 0.69",
+        "IVC axis: 126/241 per-slice centroids inside the liver's S-range",
+        "! MHV plane: normal 66 deg from the expected direction (>55) -- implausible scissura, skipped",
+        "RHV plane: 9514/12166 voxels within 70 mm of the IVC, planarity 0.96, 15 deg from expected",
+        "LHV plane: 6356/10772 voxels within 70 mm of the IVC, planarity 0.96, 7 deg from expected",
+        "umbilical plane: trunk walk 29 nodes (16 mm), turn at node 28, tilted along the umbilical portion (29 nodes, |A| 0.86), 6 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): graph cut splits 144/109 nodes, 27 mm apart in R",
+        "  left lateral (II/III): graph cut splits 55/54 nodes, 14 mm apart in S",
+        "left pedicle seeds: IV=144 II=55 III=54",
+        "  right_ant (VIII/V): graph cut splits 34/35 nodes, 18 mm apart in S",
+        "right_ant seeds: VIII=34 V=35",
+        "  right_post (VII/VI): no usable graph cut -> transverse plane (51/83)",
+        "right_post seeds: VII=51 VI=83",
+        "Voronoi: 1,345,353 liver voxels from 451 seeds",
+        "segment I (heuristic): 9337 voxels from 9444 candidates, 5 components"
+      ],
+      "seconds": 19.675784587860107
+    },
+    {
+      "case": "RMV2026_0031_CT_UTV_VEP_O",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.67, margin 0.23)",
+      "frame_confidence": 0.6663037809975247,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "mhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 2.681,
+        "2": 246.199,
+        "3": 130.454,
+        "4": 114.553,
+        "5": 268.003,
+        "6": 438.869,
+        "7": 461.685,
+        "8": 479.069
+      },
+      "volume_pct": {
+        "1": 0.1251918620153135,
+        "2": 11.496498036668468,
+        "3": 6.091674437652259,
+        "4": 5.349162017694966,
+        "5": 12.514656693655374,
+        "6": 20.493408165161735,
+        "7": 21.558823131122715,
+        "8": 22.370585656029174
+      },
+      "volume_pct_other_mode": {
+        "1": 0.21456792464019597,
+        "2": 13.981470110151097,
+        "3": 6.2856027490844095,
+        "4": 7.639131772723304,
+        "5": 30.050623087508693,
+        "6": 1.2291309929008136,
+        "7": 22.464211050785124,
+        "8": 18.135262312206372
+      },
+      "mode_agreement": 0.6670489509052712,
+      "mode_dice_per_segment": {
+        "1": 0.7369433754810335,
+        "2": 0.8999915691312906,
+        "3": 0.8650159774542464,
+        "4": 0.33498953786860136,
+        "5": 0.47238028788611813,
+        "6": 0.11262900615016197,
+        "7": 0.8778425875541893,
+        "8": 0.8387204618658625
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            true,
+            "worst is IV at 100%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            true,
+            "II>III, VIII>V, VII>VI all hold"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +42 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +70 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.888 between the portal-derived left liver and the MHV (Cantlie) half-space"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.722 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            false,
+            "Dice 0.468 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            false,
+            "5/8 in range; outliers I=0.1%, IV=5.3%, VI=20.5%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            false,
+            "II+III+IV = 22.9%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.67, margin 0.23"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.9969621048772184,
+          "anterior_posterior_gap_mm": 41.57701984555257,
+          "left_right_gap_mm": 70.2516644364312,
+          "dice_cantlie_vs_mhv": 0.8875091387830714,
+          "dice_right_sector_vs_rhv": 0.7223029134919935,
+          "dice_segment_iv_vs_lhv": 0.4680322527267119,
+          "segments_in_reference_range": 5,
+          "left_liver_pct": 22.937334492015694,
+          "frame_confidence": 0.6663037809975247,
+          "mode_agreement": 0.6670489509052712
+        },
+        "passed": 9,
+        "total": 12
+      },
+      "notes": [
+        "liver mask: kept the largest of 3 components, dropped 37 stray voxels (0.00%)",
+        "pedicle skeletons: left=582, right_ant=759, right_post=790",
+        "portal bifurcation: left-right pedicle gap 21.5 mm",
+        "transverse plane: 277 proximal points, tilt 13 deg from horizontal, planarity 0.48",
+        "IVC axis: 150/248 per-slice centroids inside the liver's S-range",
+        "MHV plane: 13035/23938 voxels within 70 mm of the IVC, planarity 0.95, 52 deg from expected",
+        "RHV plane: 25163/46437 voxels within 70 mm of the IVC, planarity 0.91, 18 deg from expected",
+        "LHV plane: 6878/8142 voxels within 70 mm of the IVC, planarity 0.93, 15 deg from expected",
+        "umbilical plane: trunk walk 17 nodes (15 mm), turn at node 0, tilted along the umbilical portion (17 nodes, |A| 0.85), 32 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): graph cut splits 131/451 nodes, 45 mm apart in R",
+        "  left lateral (II/III): graph cut splits 327/124 nodes, 11 mm apart in S",
+        "left pedicle seeds: IV=131 II=327 III=124",
+        "  right_ant (VIII/V): graph cut splits 504/255 nodes, 33 mm apart in S",
+        "right_ant seeds: VIII=504 V=255",
+        "  right_post (VII/VI): graph cut splits 457/333 nodes, 37 mm apart in S",
+        "right_post seeds: VII=457 VI=333",
+        "Voronoi: 2,141,513 liver voxels from 2,120 seeds",
+        "segment I (heuristic): 2681 voxels from 4727 candidates, 6 components"
+      ],
+      "seconds": 63.82363247871399
+    },
+    {
+      "case": "RMV2026_0033_CT_UTV_VEP_K",
+      "mode": "voronoi",
+      "frame": "R=axis0- A=axis2+ S=axis1+ (confidence 0.82, margin 0.32)",
+      "frame_confidence": 0.8221456177389685,
+      "frame_warnings": [],
+      "planes": [
+        "lhv",
+        "mhv",
+        "rhv",
+        "transverse",
+        "umbilical"
+      ],
+      "volume_ml": {
+        "1": 9.02,
+        "2": 94.455,
+        "3": 289.199,
+        "4": 283.625,
+        "5": 128.79,
+        "6": 375.678,
+        "7": 290.673,
+        "8": 242.679
+      },
+      "volume_pct": {
+        "1": 0.5262178413517381,
+        "2": 5.510410887458805,
+        "3": 16.871582428057796,
+        "4": 16.54640080414487,
+        "5": 7.513480685996713,
+        "6": 21.916681397265886,
+        "7": 16.957574124083568,
+        "8": 14.157651831640628
+      },
+      "volume_pct_other_mode": {
+        "1": 2.2116900868609477,
+        "2": 13.44154052314921,
+        "3": 16.214218499415736,
+        "4": 6.368285982478463,
+        "5": 25.56689471384426,
+        "6": 2.009253733258893,
+        "7": 16.031325713092265,
+        "8": 18.15679074790023
+      },
+      "mode_agreement": 0.6012639729213666,
+      "mode_dice_per_segment": {
+        "1": 0.379876840467921,
+        "2": 0.3513278068331184,
+        "3": 0.9763616807433921,
+        "4": 0.24666929745280497,
+        "5": 0.4005452906953162,
+        "6": 0.16661017899682776,
+        "7": 0.9215925187764493,
+        "8": 0.8342865602229973
+      },
+      "checks": {
+        "rows": [
+          [
+            "partitions the liver exactly",
+            true,
+            "0 liver voxels unlabelled, 0 labels outside the liver"
+          ],
+          [
+            "all eight segments present",
+            true,
+            "none missing"
+          ],
+          [
+            "each segment is one connected blob (>=85%)",
+            true,
+            "worst is II at 100%"
+          ],
+          [
+            "superior segments sit above their inferior partners",
+            true,
+            "II>III, VIII>V, VII>VI all hold"
+          ],
+          [
+            "right anterior sector is anterior to the posterior sector",
+            true,
+            "V+VIII are +43 mm anterior of VI+VII"
+          ],
+          [
+            "left segments lie to the patient's left of the right ones",
+            true,
+            "V-VIII are +69 mm right of II-IV"
+          ],
+          [
+            "portal left/right agrees with the MHV plane (Dice>=0.70)",
+            true,
+            "Dice 0.815 between the portal-derived left liver and the MHV (Cantlie) half-space"
+          ],
+          [
+            "portal ant/post agrees with the RHV plane (Dice>=0.70)",
+            false,
+            "Dice 0.661 between V+VIII and the RHV anterior half-space"
+          ],
+          [
+            "portal IV boundary agrees with the LHV plane (Dice>=0.70)",
+            false,
+            "Dice 0.608 between segment IV and the LHV medial half-space"
+          ],
+          [
+            "segment volumes inside the published range (>=6/8)",
+            false,
+            "5/8 in range; outliers I=0.5%, III=16.9%, VI=21.9%"
+          ],
+          [
+            "left hemiliver is 25-45% of the liver",
+            true,
+            "II+III+IV = 38.9%"
+          ],
+          [
+            "anatomical frame recovered confidently",
+            true,
+            "confidence 0.82, margin 0.32"
+          ]
+        ],
+        "metrics": {
+          "min_largest_cc_fraction": 0.9997776719072574,
+          "anterior_posterior_gap_mm": 43.09671143314851,
+          "left_right_gap_mm": 69.23728916248159,
+          "dice_cantlie_vs_mhv": 0.814957841098645,
+          "dice_right_sector_vs_rhv": 0.66057103073093,
+          "dice_segment_iv_vs_lhv": 0.6081346226515644,
+          "segments_in_reference_range": 5,
+          "left_liver_pct": 38.92839411966147,
+          "frame_confidence": 0.8221456177389685,
+          "mode_agreement": 0.6012639729213666
+        },
+        "passed": 9,
+        "total": 12
+      },
+      "notes": [
+        "pedicle skeletons: left=94, right_ant=101, right_post=150",
+        "portal bifurcation: left-right pedicle gap 9.4 mm",
+        "  snapped to VenaPorta centreline (4.2 mm away)",
+        "transverse plane: 260 proximal points, tilt 33 deg from horizontal, planarity 0.92",
+        "IVC axis: 139/221 per-slice centroids inside the liver's S-range",
+        "MHV plane: 10662/12318 voxels within 70 mm of the IVC, planarity 0.75, 14 deg from expected",
+        "RHV plane: 7852/9196 voxels within 70 mm of the IVC, planarity 0.97, 14 deg from expected",
+        "LHV plane: 1639/2214 voxels within 70 mm of the IVC, planarity 1.00, 43 deg from expected",
+        "umbilical plane: trunk walk 44 nodes (27 mm), turn at node 27, tilted along the umbilical portion (36 nodes, |A| 0.92), 16 deg off sagittal",
+        "  left medial/lateral (IV vs II+III): graph cut splits 57/37 nodes, 29 mm apart in R",
+        "  left lateral (II/III): relaxed graph cut splits 19/18 nodes, 5 mm apart in S",
+        "left pedicle seeds: IV=57 II=19 III=18",
+        "  right_ant (VIII/V): graph cut splits 50/51 nodes, 23 mm apart in S",
+        "right_ant seeds: VIII=50 V=51",
+        "  right_post (VII/VI): graph cut splits 75/75 nodes, 21 mm apart in S",
+        "right_post seeds: VII=75 VI=75",
+        "Voronoi: 1,714,119 liver voxels from 316 seeds",
+        "segment I (heuristic): 9020 voxels from 16652 candidates, 5 components"
+      ],
+      "seconds": 16.834179639816284
+    }
+  ],
+  "failures": [
+    [
+      "RMV2025_0009_CT_UTV_VEP_D",
+      "ValueError('RMV2025_0009_CT_UTV_VEP_D: left portal pedicle missing -- cannot segment')"
+    ]
+  ],
+  "coverage_bias": {
+    "n": 23,
+    "pearson_log": 0.7899115803883814,
+    "seed_ratio_median": 1.1130434782608696,
+    "volume_ratio_median": 1.2440048709397897,
+    "volume_ratio_reference": 0.826241134751773,
+    "cases": [
+      "RMV2025_0001_CT_NCT_HBP_X",
+      "RMV2025_0002_MR_NCT_ARP_N",
+      "RMV2025_0003_CT_UTV_VEP_P",
+      "RMV2025_0004_CT_UTV_VEP_N",
+      "RMV2025_0007_CT_UTV_VEP_H",
+      "RMV2025_0008_CT_UTV_VEP_F",
+      "RMV2025_0010_CT_UTV_VEP_U",
+      "RMV2025_0011_CT_UTV_VEP_S",
+      "RMV2025_0012_CT_UTV_VEP_Q",
+      "RMV2025_0013_CT_UTV_VEP_O",
+      "RMV2025_0015_CT_UTV_VEP_K",
+      "RMV2025_0016_CT_UTV_ARP_C",
+      "RMV2026_0020_CT_UTV_VEP_R",
+      "RMV2026_0021_CT_UTV_VEP_P",
+      "RMV2026_0022_CT_UTV_VEP_N",
+      "RMV2026_0023_CT_UTV_VEP_L",
+      "RMV2026_0026_CT_UTV_VEP_F",
+      "RMV2026_0027_CT_UTV_VEP_D",
+      "RMV2026_0028_CT_UTV_VEP_B",
+      "RMV2026_0029_CT_UTV_VEP_9",
+      "RMV2026_0030_CT_UTV_VEP_Q",
+      "RMV2026_0031_CT_UTV_VEP_O",
+      "RMV2026_0033_CT_UTV_VEP_K"
+    ]
+  }
+}

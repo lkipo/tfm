@@ -1,0 +1,64 @@
+# Stage 1 -- the six channels that are complete in all 38 subjects.
+#
+# Every channel here is non-empty in every subject and has at least ~7k voxels,
+# so nothing is masked out and nothing is being asked of the network that the
+# annotation cannot supply. Run this first: it is the config that tells you
+# whether the transfer works at all. `liver` above ~0.90 and `portal_tree`
+# climbing past ~0.30 by epoch 30 means the pipeline is sound; if `liver` is
+# still at 0.2 after ten epochs something is wrong upstream, not with the
+# hyper-parameters (that is exactly what happened in training_diary.md Run 4).
+seed: 42
+run_name: core6
+run_root: ./runs/cornerstone
+monitor: val/dice_thin        # never val/dice: the mean is owned by `liver`
+monitor_mode: max
+save_top_k: 3
+checkpoint_every_minutes: 30
+freeze_encoder_epochs: 3
+early_stopping_patience: 0    # 0 = never stop early; the metric is noisy at n=38
+log_slices_every_n_epochs: 5
+
+data:
+  channel_preset: core6
+  roi_size: [96, 96, 96]      # 96 mm at the prepared 1 mm spacing
+  intensity_range: [-175.0, 250.0]   # CT soft-tissue window
+  batch_size: 1
+  samples_per_volume: 4       # -> 4 patches per optimiser step
+  num_workers: 4
+  train_frac: 0.7
+  val_frac: 0.15
+  test_frac: 0.15
+  n_folds: 0                  # set 5 (+ fold: 0..4) for the cross-validation
+  fold: 0
+  exclude_modality: [MR]      # the HU window is meaningless for RMV2025_0002_MR
+  group_by: case              # 38 distinct DICOM PatientIDs; no patient repeats
+  crop_background_ratio: 0.05
+  crop_thin_share: 0.7        # 70% of crop centres land on a tubular channel
+  elastic_prob: 0.15
+  affine_prob: 0.3
+  cache_rate_train: 1.0
+  cache_rate_val: 1.0
+
+model:
+  feature_size: 36            # must match the checkpoint; 48 would load nothing
+  pretrained_weights: data/nn_model_weights/swin_unetr-epoch=483-val_loss=0.07.ckpt
+  sw_batch_size: 4
+  sw_overlap: 0.5
+  use_checkpoint: true        # gradient checkpointing; ~40% less activation memory
+  init_bias_prior: true
+  pos_weight_cap: 50.0        # pos_weight defaults to capped inverse prevalence
+  lambda_dice: 1.0
+  lambda_bce: 1.0
+  lambda_cldice: 0.5
+  learning_rate: 3.0e-4
+  weight_decay: 0.01
+  encoder_lr_scale: 0.3
+  warmup_epochs: 2
+  scheduler: cosine
+  threshold: 0.5
+
+trainer:
+  max_epochs: 300
+  precision: bf16-mixed
+  gradient_clip_val: 1.0
+  log_every_n_steps: 5
